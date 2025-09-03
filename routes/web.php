@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
 
+
 Route::get('/ouvidoria', [OuvidoriaController::class, 'create'])->name('ouvidoria.form');
 Route::post('/ouvidoria', [OuvidoriaController::class, 'store'])->name('ouvidoria.store');
 Route::get('/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidoria.show');
