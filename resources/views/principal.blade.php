@@ -1,13 +1,18 @@
 <html>
-<head>
-   
-
+<head>   
     <title>Formulário de Ouvidoria</title>
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>teste</h1>
+    <header>
+        <nav class="navbar">
+    <a href="#" class="logo">Login</a>
+     <button a href=class="btn-registrar">Registrar</button>
+
+    </ul>
+    </header>
     <div class="main-container">
         <h2 class="info-title">ouvidoria - formulário</h2>
     <div class="form-container">

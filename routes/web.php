@@ -11,6 +11,15 @@ Route::delete('/delete/{id}', [OuvidoriaController::class, 'destroy'])->name('ou
 Route::get('/dashboard', [OuvidoriaController::class, 'dashboard'])->name('dashboard');
 Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
 
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('welcome', [OuvidoriaController::class, 'welcome'])->name('welcome');
+});
+
+Route::get('welcome', function() {
+    return view('welcome');
+});
+
 Route::get('/', function () {
     return view('principal');
 });
