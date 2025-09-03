@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1>teste</h1>
-    <div class="main-container">
+        <div class="main-container">
         <h2 class="info-title">ouvidoria - formulário</h2>
     <div class="form-container">
         <h1 class="form-title">Formulário de Ouvidoria</h1>
