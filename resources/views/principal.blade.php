@@ -6,13 +6,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-    <a href="#" class="logo">Login</a>
-     <button a href=class="btn-registrar">Registrar</button>
-
-    </ul>
-    </header>
+    <header class="header">
+    <nav class="nav-bar">
+        @auth
+        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+            @csrf
+            <button type="submit" class="submit-btn">Logout</button>
+        </form>
+        @endauth
+        @guest
+        <a href="{{ url('/cadastro') }}" class="submit-btn">Registrar</a>
+        <a href="{{ url('/login') }}" class="submit-btn">Login</a>
+        @endguest
+    </nav>
+</header>
     <div class="main-container">
         <h2 class="info-title">ouvidoria - formulário</h2>
     <div class="form-container">

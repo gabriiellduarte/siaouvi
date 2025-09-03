@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/ouvidoria', [OuvidoriaController::class, 'create'])->name('ouvidoria.form');
 Route::post('/ouvidoria', [OuvidoriaController::class, 'store'])->name('ouvidoria.store');
@@ -16,6 +17,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('welcome', [OuvidoriaController::class, 'welcome'])->name('welcome');
 });
 
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+
 Route::get('welcome', function() {
     return view('welcome');
 });
@@ -23,4 +30,10 @@ Route::get('welcome', function() {
 Route::get('/', function () {
     return view('principal');
 });
+
+Route::get('/cadastro', function() {
+    return view('cadastro');
+});
+
+
 
