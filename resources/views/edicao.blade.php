@@ -70,8 +70,8 @@
             </div>
             <h2 class="info-title">Informações da manifestação</h2>
             <div class="form-group">
-                <label for="secretaria_id" class="form-label">Secretaria de destino da manifestação</label>
-                <select name="secretaria_id" id="secretaria_id" class="form-select" required>
+                <label for="secretaria" class="form-label">Secretaria de destino da manifestação</label>
+                <select name="secretaria" id="secretaria" class="form-select" required>
                     <option value="">Selecione...</option>
                     <option value="secretaria1" {{ $manifestacao->secretaria_id == 'secretaria1' ? 'selected' : '' }}>Secretaria 1</option>
                     <option value="secretaria2" {{ $manifestacao->secretaria_id == 'secretaria2' ? 'selected' : '' }}>Secretaria 2</option>
