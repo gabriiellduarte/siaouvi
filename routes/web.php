@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
+use App\Http\Controllers\MovimentacaoController;;
 
 use App\Models\Manifestacao;
 use Inertia\Inertia;
@@ -9,12 +10,6 @@ use Inertia\Inertia;
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('welcome', [OuvidoriaController::class, 'welcome'])->name('welcome');
 });
-
-
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
 
 Route::get('welcome', function() {
     return view('welcome');
@@ -43,6 +38,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard', compact('manifestacoes'));
     });
 
+    Route::get('/manifestacoes/{id}/movimentacoes/criar', [MovimentacaoController::class, 'create'])->name('movimentacoes.create');
+    Route::post('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'store'])->name('movimentacoes.store');
+    Route::get('/movimentacao', function () {
+        return view('movimentacao');
+    });
 });
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
