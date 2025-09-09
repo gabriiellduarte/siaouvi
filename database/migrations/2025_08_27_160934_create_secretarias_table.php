@@ -9,9 +9,8 @@ return new class extends Migration {
     {
         Schema::create('secretarias', function (Blueprint $table) {
             $table->id();
-            $table->string('nome'); // exemplo: "Secretaria da Educação"
+            $table->string('nome')->unique(); // exemplo: "Secretaria da Educação"
             $table->timestamps();
-            $table->string('nome')->unique(); // --- IGNORE ---
         });
     }
 

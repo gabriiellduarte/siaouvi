@@ -33,7 +33,7 @@ class OuvidoriaController extends Controller
     'email' => $request->email,
     'tipo_telefone' => $request->tipo_telefone,
     'telefone' => $request->contato,
-    'secretaria_id' => $request->secretaria_id, // ID correto vindo do select
+    'secretaria' => $request->secretaria, // ID correto vindo do select
     'tipo_assunto' => $request->tipo_assunto,
     'forma_contato' => $request->forma_contato,
     'natureza' => $request->natureza,
@@ -73,7 +73,7 @@ $manifestacao = Manifestacao::create([
     'email' => $request->email,
     'tipo_telefone' => $request->tipo_telefone,
     'telefone' => $request->contato,
-    'secretaria_id' => $request->secretaria_id, // ID correto vindo do select
+    'secretaria' => $request->secretaria, // ID correto vindo do select
     'tipo_assunto' => $request->tipo_assunto,
     'forma_contato' => $request->forma_contato,
     'natureza' => $request->natureza,

@@ -6,21 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-    <nav class="nav-bar">
-        @auth
-        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-            @csrf
-            <button type="submit" class="submit-btn">Logout</button>
-        </form>
-        @endauth
-        @guest
-        <a href="{{ url('/cadastro') }}" class="submit-btn">Registrar</a>
-        <a href="{{ url('/login') }}" class="submit-btn">Login</a>
-        @endguest
-    </nav>
-</header>
-    <div class="main-container">
+        <div class="main-container">
         <h2 class="info-title">ouvidoria - formulário</h2>
     <div class="form-container">
         <h1 class="form-title">Formulário de Ouvidoria</h1>
@@ -84,8 +70,8 @@
             </div>
             <h2 class="info-title">Informações da manifestação</h2>
             <div class="form-group">
-                <label for="secretaria_id" class="form-label">Secretaria de destino da manifestação</label>
-                <select name="secretaria_id" id="secretaria_id" class="form-select" required>
+                <label for="secretaria" class="form-label">Secretaria de destino da manifestação</label>
+                <select name="secretaria" id="secretaria" class="form-select" required>
                     <option value="">Selecione...</option>
                     <option value="secretaria1">Secretaria 1</option>
                     <option value="secretaria2">Secretaria 2</option>
