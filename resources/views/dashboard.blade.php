@@ -120,8 +120,6 @@
             </div>
     </header>
     </div>
-    
-
     <div class="col-md-10- offset-md-1 dashboard-title-container">
         <div class="col-md-10- offset-md-1 dashboard-title-container">
             <h1>Manifestações enviadas</h1>

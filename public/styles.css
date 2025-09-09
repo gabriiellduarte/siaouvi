@@ -95,6 +95,7 @@ textarea:focus {
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .submit-btn:hover {
@@ -142,4 +143,18 @@ textarea:focus {
 .submit-btn {
     position: static !important;
     float: none !important;
+}
+
+.header {
+    background: #f8f9fa;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 0;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: 1rem;
 }
