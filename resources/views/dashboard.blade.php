@@ -155,7 +155,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
-                                    {{-- <button><a href="{{ route('ouvidoria.andamento', $manifestacao->id) }}">Andamento</a></button> --}}
+                                     <button><a href="">Andamento</a></button>
                                 </form>
                             </td>
                         </tr>
