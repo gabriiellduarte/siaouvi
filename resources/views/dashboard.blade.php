@@ -16,7 +16,8 @@
                 <h2>opções de filtragem</h2>
                 <form action="{{ route('dashboardouvi') }}" method="GET" class="p-3 border rounded bg-light">
     <div >
-        <!-- Início e Fim -->
+        <div class="row valign-wrapper">
+                    <!-- Início e Fim -->
         <div class="filtro-group">
             <label for="inicio" class="filtro-label">Início</label>
             <input type="date" id="inicio" name="filter[inicio]" class="filtro-input" autocomplete="off" value="{{ request('filter.inicio') }}">
@@ -100,13 +101,15 @@
             </select>
         </div>
     </div>
-
+    <button type="submit" class="btn-filtrar">Filtrar</button>
     <!-- Mais filtros -->
     <div class="mt-3">
         <button type="button" class="btn btn-secondary">
             <i class="bi bi-funnel-fill"></i> Mais filtros
         </button>
     </div>
+        </div>
+
 </form>
 
             </div>
