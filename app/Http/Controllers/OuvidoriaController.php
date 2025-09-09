@@ -66,11 +66,11 @@ class OuvidoriaController extends Controller
     }
 
     if ($request->filled('filter.fim')) {
-        $query->whereDate('created_at', '<=', $request->input('filter.fim'));
+        $query->whereDate('updated_at', '<=', $request->input('filter.fim'));
     }
 
     if ($request->filled('filter.protocolo')) {
-        $query->where('protocolo', 'like', "%".$request->input('filter.protocolo')."%");
+        $query->where('id', 'like', "%".$request->input('filter.protocolo')."%");
     }
 
     if ($request->filled('filter.nome')) {
