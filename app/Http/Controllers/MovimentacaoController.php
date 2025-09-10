@@ -30,6 +30,12 @@ class MovimentacaoController extends Controller
         return redirect()->route('manifestacoes.show', $manifestacaoId)
             ->with('success', 'Movimentação registrada com sucesso!');
     }
+    public function show($id)
+{
+    return view('movimentacao', compact('id'));
+}
+
+
 }
 
 
