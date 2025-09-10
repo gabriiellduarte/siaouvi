@@ -155,7 +155,11 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
+<<<<<<< HEAD
                                      <button><a href="">Andamento</a></button>
+=======
+                                    <button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
+>>>>>>> 336dfa7
                                 </form>
                             </td>
                         </tr>

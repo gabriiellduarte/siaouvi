@@ -28,7 +28,7 @@
                 <input type="date" id="date" name="date" class="form-input" required>
             </div>
 
-            <div class="form-group">
+            
                 <label for="gender" class="form-label">Sexo:</label>
                 <select id="gender" name="gender" class="form-select" required>
                     <option value="">Selecione...</option>
