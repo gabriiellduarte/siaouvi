@@ -71,8 +71,9 @@
             <label for="natureza" class="filtro-label">Natureza:</label>
             <select id="natureza" name="filter[natureza]" class="filtro-select" value="{{ request('filter.natureza') }}">
                 <option value="">Selecione</option>
-                <option value="administrativo" {{ request('filter.natureza') == 'administrativo' ? 'selected' : '' }}>Administrativo</option>
-                <option value="juridico" {{ request('filter.natureza') == 'juridico' ? 'selected' : '' }}>Jurídico</option>
+                <option value="sugestao" {{ request('filter.natureza') == 'sugestao' ? 'selected' : '' }}>Sugestão</option>
+                <option value="elogio" {{ request('filter.natureza') == 'elogio' ? 'selected' : '' }}>Elogio</option>
+                <option value="reclamacao" {{ request('filter.natureza') == 'reclamacao' ? 'selected' : '' }}>Reclamação</option>
             </select>
         </div>
 
@@ -135,6 +136,7 @@
                         <th scope="col">Data de Criação</th>
                         <th scope="col">Data de Atualização</th>
                         <th scope="col">Secretaria</th>
+                        <th scope="col">Natureza</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
@@ -148,6 +150,7 @@
                             <td>{{ $manifestacao->created_at }}</td>
                             <td>{{ $manifestacao->updated_at }}</td>
                             <td>{{ $manifestacao->secretaria }}</td>
+                            <td>{{ $manifestacao->natureza }}</td>
                             <td>
                                 <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
                                 <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
@@ -155,12 +158,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
-<<<<<<< HEAD
-                                     <button><a href="">Andamento</a></button>
-=======
-                                    <button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
->>>>>>> 336dfa7
-                                </form>
+                                    
+                                </form><button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
                             </td>
                         </tr>
                     @endforeach
