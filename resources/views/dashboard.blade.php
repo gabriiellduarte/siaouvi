@@ -148,6 +148,7 @@
                             <td>{{ $manifestacao->created_at }}</td>
                             <td>{{ $manifestacao->updated_at }}</td>
                             <td>{{ $manifestacao->secretaria }}</td>
+                            <td>{{ $manifestacao->natureza }}</td>
                             <td>
                                 <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
                                 <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
@@ -155,7 +156,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
-                                     <button><a href="">Andamento</a></button>
+                                     <button><a href="{{ url('movimentacoes', $manifestacao->id) }}">Andamento</a></button>
                                 </form>
                             </td>
                         </tr>

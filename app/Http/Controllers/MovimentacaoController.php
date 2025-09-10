@@ -10,7 +10,7 @@ class MovimentacaoController extends Controller
   public function create($manifestacaoId) 
   {
         $manifestacao = Manifestacao::findOrFail($manifestacaoId);
-        return view('movimentacao.create', compact('manifestacao'));
+        return view('movimentacoes.create', compact('manifestacao'));
   }
 
  public function store(Request $request, $manifestacaoId)
