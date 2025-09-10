@@ -53,11 +53,60 @@ class OuvidoriaController extends Controller
         $manifestacao->delete();
         return redirect()->route('ouvidoria.form')->with('success', 'Manifestação excluída com sucesso!');
     }
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        $manifestacoes = Manifestacao::all();
-        return view('dashboard', ['manifestacoes' => $manifestacoes]);
+        
+
+        $query = Manifestacao::query();
+
+        
+    // Aplicando filtros
+    if ($request->filled('filter.inicio')) {
+        $query->whereDate('created_at', '>=', $request->input('filter.inicio'));
     }
+
+    if ($request->filled('filter.fim')) {
+        $query->whereDate('updated_at', '<=', $request->input('filter.fim'));
+    }
+
+    if ($request->filled('filter.protocolo')) {
+        $query->where('id', 'like', "%".$request->input('filter.protocolo')."%");
+    }
+
+    if ($request->filled('filter.nome')) {
+        $query->where('nome', 'like', "%".$request->input('filter.nome')."%");
+    }
+
+    if ($request->filled('filter.mensagem')) {
+        $query->where('mensagem', 'like', "%".$request->input('filter.mensagem')."%");
+    }
+
+    if ($request->filled('filter.secretaria')) {
+        $query->where('secretaria', 'like', "%".$request->input('filter.secretaria')."%");
+    }
+
+    if ($request->filled('filter.origem')) {
+        $query->where('origem', $request->input('filter.origem'));
+    }
+
+    if ($request->filled('filter.natureza')) {
+        $query->where('natureza', $request->input('filter.natureza'));
+    }
+
+    
+    
+
+    if ($request->filled('filter.anexo')) {
+        $query->where('anexo', $request->input('filter.anexo'));
+    }
+
+   
+    $manifestacoes = $query->get();
+
+    return view('dashboard', compact('manifestacoes'));
+    }
+
+    
 
     public function store(Request $request)
     {
