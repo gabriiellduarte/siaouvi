@@ -18,6 +18,7 @@ return new class extends Migration {
     $table->enum('tipo_telefone', ['whatsapp','celular','fixo'])->nullable();
     $table->string('telefone')->nullable();
     $table->timestamps();
+    
 });
     }
 

@@ -16,4 +16,9 @@ class Anexo extends Model
     {
         return $this->belongsTo(Manifestacao::class);
     }
+    public function scopeWithAnexo($query)
+    {
+        return $query->whereHas('anexos');
+    }
+
 }
