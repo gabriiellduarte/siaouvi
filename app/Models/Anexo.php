@@ -14,7 +14,7 @@ class Anexo extends Model
 
     public function manifestacao()
     {
-        return $this->belongsTo(Manifestacao::class);
+        return $this->belongsTo(Manifestacao::class, 'manifestacao_id');
     }
     public function scopeWithAnexo($query)
     {

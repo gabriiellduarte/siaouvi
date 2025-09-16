@@ -10,6 +10,38 @@ use App\Models\Anexo;
 
 class OuvidoriaController extends Controller
 {
+
+    public function index(Request $request)
+{
+    $query = Manifestacao::query();
+
+    // filtro por id
+    if ($request->filled('id')) {
+        $query->where('id', 'like', '%' . $request->id . '%');
+    }
+
+    // filtro por nome
+    if ($request->filled('nome')) {
+        $query->where('nome', 'like', '%' . $request->nome . '%');
+    }
+
+    // filtro por página
+    if ($request->filled('pagina')) {
+        $query->where('pagina', $request->pagina);
+    }
+
+    // filtro por anonimato
+    if ($request->has('mostrar_anonimos') && $request->mostrar_anonimos === '0') {
+        $query->where('anonimo', 0);
+    } elseif ($request->has('mostrar_anonimos') && $request->mostrar_anonimos === '1') {
+        $query->where('anonimo', 1);
+    }
+
+    $manifestacoes = $query->paginate(15);
+
+    return view('satisfacaodapag', compact('manifestacoes'));
+}
+
     public function create()
     {
         return view('principal'); // sua Blade
@@ -175,19 +207,22 @@ if ($request->has('anonimo')) {
 
     Manifestacao::create($validated);
 
-if ($request->hasFile('anexos')) {
-    foreach ($request->file('anexos') as $file) {
-        $path = $file->store('anexos', 'public');
-
-        Anexo::create([
-            'manifestacao_id' => $manifestacao->id,
-            'caminho_arquivo' => $path,
-        ]);
+// Salva os anexos, se houver
+    $temAnexo = false;
+    if ($request->hasFile('anexos')) {
+        foreach ($request->file('anexos') as $file) {
+            $path = $file->store('anexos', 'public');
+            Anexo::create([
+                'manifestacao_id' => $manifestacao->id,
+                'caminho_arquivo' => $path,
+            ]);
+            $temAnexo = true;
+        }
     }
-    $manifestacao->update([
-                    'anexos' => $request->hasFile('anexos') ? 'sim' : 'nao',
-                ]);
-}
+
+    // Atualiza a coluna 'anexos' na manifestação
+    $manifestacao->anexos = $temAnexo ? 'sim' : 'nao';
+    $manifestacao->save();
 
 
     return back()->with('success','Manifestação enviada!');

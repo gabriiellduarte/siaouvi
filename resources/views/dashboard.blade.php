@@ -100,8 +100,8 @@
             <label for="anexos" class="filtro-label">Anexo?</label>
             <select id="anexos" name="filter[anexos]" class="filtro-select" value="{{ request('filter.anexos') }}">
                 <option value="">Selecione</option>
-                <option value="sim" {{ request('filter.anexos') == 'sim' ? 'selected' : '' }}>Sim</option>
-                <option value="nao" {{ request('filter.anexos') == 'não' ? 'selected' : '' }}>Não</option>
+                <option value="sim" {{ request('filter.anexos') == true ? 'selected' : '' }}>Sim</option>
+                <option value="nao" {{ request('filter.anexos') == false ? 'selected' : '' }}>Não</option>
             </select>
         </div>
 
@@ -141,6 +141,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Anônimo</th>
                         <th scope="col">Nome</th>
+                        <th scope="col">E-mail</th>
                         <th scope="col">CPF</th>
                         <th scope="col">Data de Criação</th>
                         <th scope="col">Data de Atualização</th>
@@ -156,7 +157,8 @@
                             <th scope="row"><a href="{{ route('ouvidoria.show', $manifestacao->id) }}">{{ $loop->index + 1 }}</a></th>
                             <td>{{ $manifestacao->anonimo == 1 ? 'Sim' : 'Não' }}</td>
 
-                            <td>{{ $manifestacao->nome }}</td>
+                            <td>{{ $manifestacao->anonimo ? 'ANÔNIMO' : $manifestacao->nome }}</td>
+                            <td>{{ $manifestacao->anonimo ? '-------' : $manifestacao->email }}</td>
                             <td>{{ $manifestacao->cpf }}</td>
                             <td>{{ $manifestacao->created_at }}</td>
                             <td>{{ $manifestacao->updated_at }}</td>
@@ -172,6 +174,28 @@
                                     <button type="submit">Excluir</button>
                                     
                                 </form><button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
+                                
+                                <!-- ...existing code... -->
+<button type="button" onclick="openModal({{ $manifestacao->id }})">Ver Anexos</button>
+<!-- Modal de Anexos -->
+<div id="modal-anexos-{{ $manifestacao->id }}" class="modal-anexos" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:9999;">
+    <div style="background:#fff; margin:10% auto; padding:20px; width:400px; position:relative;">
+        <h3>Anexos da Manifestação #{{ $manifestacao->id }}</h3>
+        <ul>
+            @forelse($manifestacao->anexos ?? [] as $anexo)
+                <li>
+                    <a href="{{ asset('storage/' . $anexo->caminho_arquivo) }}" target="_blank">
+                        {{ basename($anexo->caminho_arquivo) }}
+                    </a>
+                </li>
+            @empty
+                <li>Nenhum anexo encontrado.</li>
+            @endforelse
+        </ul>
+        <button onclick="closeModal({{ $manifestacao->id }})">Fechar</button>
+    </div>
+</div>
+<!-- ...existing code... -->
                             </td>
                         </tr>
                     @endforeach
@@ -187,9 +211,15 @@
             <a href="{{ route('ouvidoria.form') }}">Clique aqui</a> para enviar uma nova manifestação.
         </p>
     @endif
-
     
-    
+    <script>
+function openModal(id) {
+    document.getElementById('modal-anexos-' + id).style.display = 'block';
+}
+function closeModal(id) {
+    document.getElementById('modal-anexos-' + id).style.display = 'none';
+}
+</script>
 </body>
 
 </html>

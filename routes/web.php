@@ -39,6 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/movimentacao', function () {
         return view('movimentacao');
     });
+
+    Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
+     ->name('satisfacaodapag.index');
 });
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
