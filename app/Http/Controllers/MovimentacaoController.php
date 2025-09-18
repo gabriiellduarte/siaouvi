@@ -5,8 +5,11 @@ use App\Models\Movimentacao;
 use App\Models\Manifestacao;
 use Illuminate\Http\Request;
 
+
+
 class MovimentacaoController extends Controller 
 {
+    
   public function create($manifestacaoId) 
   {
         $manifestacao = Manifestacao::findOrFail($manifestacaoId);
@@ -23,6 +26,7 @@ class MovimentacaoController extends Controller
         Movimentacao::create([
             'manifestacao_id' => $manifestacaoId,
             'tipo' => $request->tipo,
+            'acao' => $request->acao,
             'mensagem' => $request->mensagem,
             'secretaria' => $request->secretaria,
         ]);
@@ -30,10 +34,44 @@ class MovimentacaoController extends Controller
         return redirect()->route('manifestacoes.show', $manifestacaoId)
             ->with('success', 'Movimentação registrada com sucesso!');
     }
-    public function show($id)
+
+    //Armazenar uma alteração e atualizar seu status
+    public function storeMovimentacao(Request $request, $id)
 {
-    return view('movimentacao', compact('id'));
+    $request->validate([
+        'acao' => 'required|string',
+        'mensagem' => 'nullable|string',
+        'tipo_assunto' => 'required', 
+        'mensagem_resposta' => 'nullable|string',
+        'secretaria' => 'nullable',
+
+    ]);
+    
+    
+    Movimentacao::create ([
+        'manifestacao_id' => $id,
+        'acao' => $request->acao,
+        'mensagem' => $request->mensagem,
+        'tipo_assunto' => $request->tipo_assunto,
+        'mensagem_resposta' => $request->mensagem_resposta,
+        'secretaria' => $request->secretaria,
+    ]);
+
+    $manifestacao = Manifestacao::with('movimentacoes')->find($id);
+    $manifestacao = Manifestacao::findOrFail($id);
+    $manifestacao->status = $request->acao;
+    $manifestacao->save();
+    $manifestacao->load('movimentacoes');
+
+    return redirect()->route('movimentacao.show', $id)->with('success', 'Movimentação atualizada com sucesso!');
 }
+
+    // Mostrar as movimentações da manifestação que escolhi 
+    public function showMovimentacao($id)
+    {
+        $manifestacao = Manifestacao::with( 'movimentacoes.user')->findOrFail($id);
+        return view('movimentacao', compact('manifestacao'));
+    }
 
 
 }

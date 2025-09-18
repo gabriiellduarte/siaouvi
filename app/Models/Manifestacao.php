@@ -23,6 +23,7 @@ class Manifestacao extends Model
         'telefone',
         'secretaria',
         'tipo_assunto',
+        'user_id',
         'forma_contato',
         'natureza',
         'mensagem',
@@ -32,4 +33,16 @@ class Manifestacao extends Model
     {
         return $this->hasMany(Anexo::class);
     }
+
+    
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
+    public function movimentacoes() 
+    {
+        return $this->hasMany(Movimentacao::class);
+    }
+
 }

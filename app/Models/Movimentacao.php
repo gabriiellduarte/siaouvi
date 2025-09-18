@@ -9,13 +9,16 @@ class Movimentacao extends Model
     protected $table = "movimentacoes";
     protected $fillable = [
         'manifestacao_id',
-        'tipo',
+        'tipo_assunto',
         'mensagem',
-        'secretaria'
+        'secretaria',
+        'acao',
+        'mensagem_resposta'
     ];
 
     public function manifestacao()
     {
         return $this->belongsTo(Manifestacao::class);
     }
+
 }
