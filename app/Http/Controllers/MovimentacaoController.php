@@ -38,17 +38,7 @@ class MovimentacaoController extends Controller
     //Armazenar uma alteração e atualizar seu status
     public function storeMovimentacao(Request $request, $id)
 {
-    $request->validate([
-        'acao' => 'required|string',
-        'mensagem' => 'nullable|string',
-        'tipo_assunto' => 'required', 
-        'mensagem_resposta' => 'nullable|string',
-        'secretaria' => 'nullable',
-
-    ]);
-    
-    
-    Movimentacao::create ([
+        Movimentacao::create ([
         'manifestacao_id' => $id,
         'acao' => $request->acao,
         'mensagem' => $request->mensagem,
@@ -56,12 +46,7 @@ class MovimentacaoController extends Controller
         'mensagem_resposta' => $request->mensagem_resposta,
         'secretaria' => $request->secretaria,
     ]);
-
-    $manifestacao = Manifestacao::with('movimentacoes')->find($id);
-    $manifestacao = Manifestacao::findOrFail($id);
-    $manifestacao->status = $request->acao;
-    $manifestacao->save();
-    $manifestacao->load('movimentacoes');
+ 
 
     return redirect()->route('movimentacao.show', $id)->with('success', 'Movimentação atualizada com sucesso!');
 }
@@ -69,7 +54,7 @@ class MovimentacaoController extends Controller
     // Mostrar as movimentações da manifestação que escolhi 
     public function showMovimentacao($id)
     {
-        $manifestacao = Manifestacao::with( 'movimentacoes.user')->findOrFail($id);
+        $manifestacao = Manifestacao::with( 'movimentacoes')->findOrFail($id);
         return view('movimentacao', compact('manifestacao'));
     }
 

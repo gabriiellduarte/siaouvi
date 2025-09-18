@@ -1,7 +1,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <h3>Detalhes da Manifestação</h3>
-        <p><strong>Status atual:</strong> {{ $manifestacao->status ?? 'Não definido' }}</p>
+       
           
        
     <button class="btn btn-primary"
@@ -29,13 +29,12 @@
         </tr>
     </thead>
     <tbody>
-    <p>Total de movimentações: {{ $manifestacao->movimentacoes->count() }}</p>
         @forelse($manifestacao->movimentacoes as $mov)
             <tr>
                 <td>{{ $mov->created_at->format('d/m/Y H:i') }}</td>
                 <td>{{ $mov->acao }}</td>
                 <td>{{ $mov->secretaria ?? '-' }}</td>
-                <td>{{ $mov->mensagem ?? '-' }}</td>
+                <td>{{ $mov->mensagem_resposta ?? '-' }}</td>
             </tr>
         @empty
             <tr>

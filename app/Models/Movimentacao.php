@@ -16,9 +16,4 @@ class Movimentacao extends Model
         'mensagem_resposta'
     ];
 
-    public function manifestacao()
-    {
-        return $this->belongsTo(Manifestacao::class);
-    }
-
 }
