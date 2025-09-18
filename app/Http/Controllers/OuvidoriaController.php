@@ -6,10 +6,69 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Manifestacao;
 use App\Http\Controllers\Controller;
+use App\Models\Anexo;
+use App\Models\Avaliacao;
 
 
 class OuvidoriaController extends Controller
 {
+
+
+    public function avaliacaoperguntacreate()
+    {
+        return view('avaliacaopergunta'); // sua Blade
+    }
+    public function avaliacaoCreate()
+    {
+        return view('avaliacao'); // sua Blade
+    }
+
+    public function avaliacaoStore(Request $request)
+    {
+        $validated = $request->validate([
+            'nota' => 'required|integer|min:0|max:10',
+            'pagina' => 'required|string',
+            'nome' => 'required|string|max:255',
+            'mensagem' => 'nullable|string',
+            'email' => 'nullable|email|max:255',
+        ]);
+
+        Avaliacao::create($validated);
+
+        return redirect()->back()->with('success', 'Avaliação salva com sucesso!');
+    }
+
+    public function index(Request $request)
+{
+    $query = Avaliacao::query();
+
+    // filtro por id
+    if ($request->filled('id')) {
+        $query->where('id', 'like', '%' . $request->id . '%');
+    }
+
+    // filtro por nome
+    if ($request->filled('nome')) {
+        $query->where('nome', 'like', '%' . $request->nome . '%');
+    }
+
+    // filtro por página
+    if ($request->filled('pagina')) {
+        $query->where('pagina', $request->pagina);
+    }
+
+    // filtro por anonimato
+    if ($request->has('mostrar_anonimos') && $request->mostrar_anonimos === '0') {
+        $query->where('anonimo', 0);
+    } elseif ($request->has('mostrar_anonimos') && $request->mostrar_anonimos === '1') {
+        $query->where('anonimo', 1);
+    }
+
+    $avaliacoes = $query->paginate(15);
+
+    return view('satisfacaodapag', compact('avaliacoes'));
+}
+
     public function create()
     {
         return view('principal'); // sua Blade
@@ -23,8 +82,10 @@ class OuvidoriaController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $manifestacao = Manifestacao::find($request->id);
+        
+        $manifestacao = Manifestacao::find($id);
         $manifestacao->update([
+    'anonimo' => $request->anonimo ?? 'nao',
     'nome' => $request->name,
     'cpf' => $request->cpf,
     'data_nascimento' => $request->date,
@@ -59,8 +120,14 @@ class OuvidoriaController extends Controller
 
         $query = Manifestacao::query();
 
+// se quiser já trazer os anexos junto
+$query->with('anexos');
+
         
     // Aplicando filtros
+    if ($request->filled('filter.anonimo')){
+        $query->where('anonimo', $request->input('filter.anonimo'));
+    }
     if ($request->filled('filter.inicio')) {
         $query->whereDate('created_at', '>=', $request->input('filter.inicio'));
     }
@@ -96,9 +163,14 @@ class OuvidoriaController extends Controller
     
     
 
-    if ($request->filled('filter.anexo')) {
-        $query->where('anexo', $request->input('filter.anexo'));
+    if ($request->filled('filter.anexos')) {
+    if ($request->input('filter.anexos') === 'sim') {
+        $query->whereHas('anexos'); // só com anexos
     }
+    if ($request->input('filter.anexos') === 'nao') {
+        $query->whereDoesntHave('anexos'); // só sem anexos
+    }
+}
 
    
     $manifestacoes = $query->get();
@@ -110,10 +182,12 @@ class OuvidoriaController extends Controller
 
     public function store(Request $request)
     {
-
-   
+        
+    
+        
 
 $manifestacao = Manifestacao::create([
+    'anonimo' => $request->anonimo ? 1 : 0,
     'nome' => $request->name,
     'cpf' => $request->cpf,
     'data_nascimento' => $request->date,
@@ -128,18 +202,64 @@ $manifestacao = Manifestacao::create([
     'natureza' => $request->natureza,
     'mensagem' => $request->observacoes,
 ]);
+if ($request->has('anonimo')) {
+        // valida apenas os campos comuns à manifestação
+        $validated = $request->validate([
+            'mensagem' => 'required|string',
+        ]);
+        $validated['name'] = null;
+        $validated['cpf'] = null;
+        $validated['data_nascimento'] = null;
+        $validated['sexo'] = null;
+        $validated['grau_instrucao'] = null;
+        $validated['email'] = null;
+        $validated['tipo_telefone'] = null;
+        $validated['telefone'] = null;
+        $validated['anonimo'] = 1;
+    } else {
+        // valida tudo
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email',
+            'mensagem' => 'required|string',
+            'cpf' => 'nullable|string|max:14',
+            'data_nascimento' => 'nullable|date',
+            'sexo' => 'nullable|string|max:20',
+            'grau_instrucao' => 'nullable|string|max:50',
+            'tipo_telefone' => 'nullable|string|max:20',
+            'telefone' => 'nullable|string|max:15',
+        ]);
+        $validated['anonimo'] = 0;
+    }
 
-/*if ($request->hasFile('anexos')) {
-    foreach ($request->file('anexos') as $file) {
-        $path = $file->store('anexos', 'public');
+    Manifestacao::create($validated);
+
+ // Se veio arquivo
+    if ($request->hasFile('anexos')) {
+        $arquivo = $request->file('anexos');
+
+        // Salva no storage
+        $path = $arquivo->store('anexos', 'public'); // storage/app/public/anexos
+
+        // Grava o anexo no banco
         Anexo::create([
             'manifestacao_id' => $manifestacao->id,
             'caminho_arquivo' => $path,
         ]);
     }
-}*/
+
+    // Atualiza a coluna 'anexos' na manifestação
+    $manifestacao->anexos = $request->hasFile('anexos') ? 'sim' : 'nao';
+    $manifestacao->save();
 
 
-        return redirect()->back()->with('success', 'Manifestação enviada com sucesso!');
-    }
+    return back()->with('success','Manifestação enviada!');
 }
+
+            
+
+
+
+
+    }
+

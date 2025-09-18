@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\MovimentacaoController;;
-
+use App\Http\Controllers\AvaliacaoController;
 use App\Models\Manifestacao;
 use Inertia\Inertia;
 
@@ -35,9 +35,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/manifestacoes/{id}/movimentacoes/criar', [MovimentacaoController::class, 'create'])->name('movimentacoes.create');
     Route::post('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'store'])->name('movimentacoes.store');
+    Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'show'])->name('movimentacao.show');
     Route::get('/movimentacao', function () {
         return view('movimentacao');
     });
+
+    Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
+     ->name('satisfacaodapag.index');
+
+     // web.php
+Route::get('/manifestacoes/{id}/anexos', [OuvidoriaController::class, 'anexos']);
+
+// routes/web.php
+
+
+Route::get('/avaliacao', [OuvidoriaController::class, 'avaliacaoCreate'])->name('avaliacao.create');
+Route::post('/avaliacao', [OuvidoriaController::class, 'avaliacaoStore'])->name('avaliacaoStore');
+Route::get('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntacreate'])->name('avaliacoes.create');
 });
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

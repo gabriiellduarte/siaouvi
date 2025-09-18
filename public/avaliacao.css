@@ -1,0 +1,135 @@
+/* Container principal */
+.satisfacao-container {
+    max-width: 700px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: Arial, sans-serif;
+}
+
+/* Título */
+.satisfacao-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+/* Ícones de satisfação */
+.satisfacao-opcoes {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.satisfacao-opcao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.satisfacao-opcao input {
+    display: none;
+}
+
+.satisfacao-opcao .emoji {
+    font-size: 2.5rem;
+    transition: transform 0.2s ease;
+}
+
+.satisfacao-opcao span {
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* Efeito quando selecionado */
+.satisfacao-opcao input:checked + .emoji {
+    transform: scale(1.3);
+}
+
+/* Inputs */
+.satisfacao-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.satisfacao-form input[type="text"],
+.satisfacao-form input[type="email"],
+.satisfacao-form textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    transition: border-color 0.2s ease;
+}
+
+.satisfacao-form input:focus,
+.satisfacao-form textarea:focus {
+    outline: none;
+    border-color: #ff7b00;
+}
+
+/* Captcha */
+.satisfacao-form .captcha {
+    margin-bottom: 15px;
+}
+
+/* Texto LGPD */
+.satisfacao-texto {
+    font-size: 0.75rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Botões */
+.satisfacao-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.satisfacao-buttons button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.satisfacao-buttons .btn-cancelar {
+    background: #f97316; /* laranja */
+    color: #fff;
+}
+
+.satisfacao-buttons .btn-cancelar:hover {
+    background: #ea580c;
+}
+
+.satisfacao-buttons .btn-enviar {
+    background: #ea580c; /* mais escuro */
+    color: #fff;
+}
+
+.satisfacao-buttons .btn-enviar:hover {
+    background: #c2410c;
+}
+
+/* Responsivo */
+@media (max-width: 500px) {
+    .satisfacao-opcoes {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .satisfacao-buttons {
+        flex-direction: column;
+    }
+}

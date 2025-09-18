@@ -17,6 +17,14 @@
                 <form action="{{ route('dashboardouvi') }}" method="GET" class="p-3 border rounded bg-light">
     <div >
         <div class="row valign-wrapper">
+            <div>
+                <label for="anonimo" class="filtro-label">Anônimo:</label>
+                <select id="anonimo" name="filter[anonimo]" class="filtro-select">
+                    <option value="">Selecione</option>
+                    <option value="1" {{ request('filter.anonimo') == 'sim' ? 'selected' : '' }}>Sim</option>
+                    <option value="0" {{ request('filter.anonimo') == 'nao' ? 'selected' : '' }}>Não</option>
+                </select>
+            </div>
                     <!-- Início e Fim -->
         <div class="filtro-group">
             <label for="inicio" class="filtro-label">Início:</label>
@@ -71,8 +79,9 @@
             <label for="natureza" class="filtro-label">Natureza:</label>
             <select id="natureza" name="filter[natureza]" class="filtro-select" value="{{ request('filter.natureza') }}">
                 <option value="">Selecione</option>
-                <option value="administrativo" {{ request('filter.natureza') == 'administrativo' ? 'selected' : '' }}>Administrativo</option>
-                <option value="juridico" {{ request('filter.natureza') == 'juridico' ? 'selected' : '' }}>Jurídico</option>
+                <option value="sugestao" {{ request('filter.natureza') == 'sugestao' ? 'selected' : '' }}>Sugestão</option>
+                <option value="elogio" {{ request('filter.natureza') == 'elogio' ? 'selected' : '' }}>Elogio</option>
+                <option value="reclamacao" {{ request('filter.natureza') == 'reclamacao' ? 'selected' : '' }}>Reclamação</option>
             </select>
         </div>
 
@@ -88,11 +97,11 @@
 
         <!-- Anexo -->
         <div class="filtro-group">
-            <label for="anexo" class="filtro-label">Anexo?</label>
-            <select id="anexo" name="filter[anexo]" class="filtro-select" value="{{ request('filter.anexo') }}">
+            <label for="anexos" class="filtro-label">Anexo?</label>
+            <select id="anexos" name="filter[anexos]" class="filtro-select" value="{{ request('filter.anexos') }}">
                 <option value="">Selecione</option>
-                <option value="sim" {{ request('filter.anexo') == 'sim' ? 'selected' : '' }}>Sim</option>
-                <option value="nao" {{ request('filter.anexo') == 'nao' ? 'selected' : '' }}>Não</option>
+                <option value="sim" {{ request('filter.anexos') == 'sim' ? 'selected' : '' }}>Sim</option>
+                <option value="nao" {{ request('filter.anexos') == 'nao' ? 'selected' : '' }}>Não</option>
             </select>
         </div>
 
@@ -130,11 +139,15 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Anônimo</th>
                         <th scope="col">Nome</th>
+                        <th scope="col">E-mail</th>
                         <th scope="col">CPF</th>
                         <th scope="col">Data de Criação</th>
                         <th scope="col">Data de Atualização</th>
                         <th scope="col">Secretaria</th>
+                        <th scope="col">Natureza</th>
+                        <th scope="col">Anexo</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
@@ -142,23 +155,19 @@
                     @foreach($manifestacoes as $manifestacao)
                         <tr>
                             <th scope="row"><a href="{{ route('ouvidoria.show', $manifestacao->id) }}">{{ $loop->index + 1 }}</a></th>
+                            <td>{{ $manifestacao->anonimo == 1 ? 'Sim' : 'Não' }}</td>
 
-                            <td>{{ $manifestacao->nome }}</td>
+                            <td>{{ $manifestacao->anonimo ? 'ANÔNIMO' : $manifestacao->nome }}</td>
+                            <td>{{ $manifestacao->anonimo ? '-------' : $manifestacao->email }}</td>
                             <td>{{ $manifestacao->cpf }}</td>
                             <td>{{ $manifestacao->created_at }}</td>
                             <td>{{ $manifestacao->updated_at }}</td>
                             <td>{{ $manifestacao->secretaria }}</td>
                             <td>{{ $manifestacao->natureza }}</td>
-                            <td>
-                                <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
-                                <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">Excluir</button>
-                                     <button><a href="{{ url('movimentacoes', $manifestacao->id) }}">Andamento</a></button>
-                                </form>
-                            </td>
+                            <td>{{ $manifestacao->anexos ? 'Sim' : 'Não' }}</td>
+                            
+
+                           
                         </tr>
                     @endforeach
                 </tbody>
@@ -174,6 +183,8 @@
         </p>
     @endif
     
+    
+
 </body>
 
 </html>
