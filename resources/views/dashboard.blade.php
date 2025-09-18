@@ -172,60 +172,10 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
-<<<<<<< HEAD
                                     
                                 </form><button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
                                 
-                                <!-- ...existing code... -->
-<button type="button" onclick="openModal({{ $manifestacao->id }})">Ver Anexos</button>
-<!-- Modal de Anexos -->
-<div id="modal-anexos-{{ $manifestacao->id }}" class="modal-anexos" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:9999;">
-    <div style="background:#fff; margin:10% auto; padding:20px; width:400px; position:relative;">
-        <h3>Anexos da Manifestação #{{ $manifestacao->id }}</h3>
-        <ul>
-            @forelse($manifestacao->anexos ?? [] as $anexo)
-                <li>
-                    <a href="{{ asset('storage/' . $anexo->caminho_arquivo) }}" target="_blank">
-                        {{ basename($anexo->caminho_arquivo) }}
-                    </a>
-                </li>
-            @empty
-                <li>Nenhum anexo encontrado.</li>
-            @endforelse
-        </ul>
-        <button onclick="closeModal({{ $manifestacao->id }})">Fechar</button>
-    </div>
-</div>
-<!-- ...existing code... -->
-=======
-                                   
-                                </form> 
-                                <button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
->>>>>>> gustavo
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
 
-        </div>
-    </div>
-    @if(isset($manifestacoes) && $manifestacoes->count() > 0)
-        <p>Você tem {{ $manifestacoes->count() }} manifestações enviadas.</p>
-    @else
-        <p>Nenhuma manifestação enviada.
-            <a href="{{ route('ouvidoria.form') }}">Clique aqui</a> para enviar uma nova manifestação.
-        </p>
-    @endif
-    
-    <script>
-function openModal(id) {
-    document.getElementById('modal-anexos-' + id).style.display = 'block';
-}
-function closeModal(id) {
-    document.getElementById('modal-anexos-' + id).style.display = 'none';
-}
-</script>
 </body>
 
 </html>
