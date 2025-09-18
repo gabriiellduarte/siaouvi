@@ -48,9 +48,9 @@ class OuvidoriaController extends Controller
     }
     public function show(Request $request)
     {
-        $manifestacao = Manifestacao::find($request->id);
+        $manifestacoes = Manifestacao::find($request->id);
         //return $manifestacao;
-        return view('show', compact('manifestacao'));
+        return view('show', compact('manifestacoes'));
         
     }
     public function update(Request $request, $id)
@@ -87,14 +87,15 @@ class OuvidoriaController extends Controller
         $manifestacao->delete();
         return redirect()->route('ouvidoria.form')->with('success', 'Manifestação excluída com sucesso!');
     }
+
     public function dashboard(Request $request)
     {
         
 
         $query = Manifestacao::query();
 
-// se quiser já trazer os anexos junto
-$query->with('anexos');
+        $query->with('anexos');
+
 
         
     // Aplicando filtros

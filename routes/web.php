@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\MovimentacaoController;;
-
 use App\Models\Manifestacao;
 use Inertia\Inertia;
 
@@ -28,9 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/ouvi/dashboard', [OuvidoriaController::class, 'dashboard'])->name('dashboardouvi');
     Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
     
-    Route::get('/ouvidoriacadastrar', function () {
+    Route::get('/movimentacao', function () {
         $manifestacoes = Manifestacao::all();
-        return view('dashboard', compact('manifestacoes'));
+        return view('movimentacao', compact('manifestacao'));
     });
 
     Route::get('/manifestacoes/{id}/movimentacoes/criar', [MovimentacaoController::class, 'create'])->name('movimentacoes.create');
@@ -42,6 +41,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
      ->name('satisfacaodapag.index');
+
+    Route::post('/manifestacoes/{id}/movimentar', [MovimentacaoController::class, 'storeMovimentacao'])
+    ->name('manifestacoes.movimentar.store');
+    Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'showMovimentacao'])->name('movimentacao.show');
+    Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'movimentacoes'])->name('manifestacoes.movimentacoes');
+    Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'showMovimentacao'])
+    ->name('manifestacoes.movimentacoes');
+
+
 });
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
