@@ -27,7 +27,6 @@ class Manifestacao extends Model
         'forma_contato',
         'natureza',
         'mensagem',
-        'anexos',
 
     ];
     
@@ -35,7 +34,7 @@ class Manifestacao extends Model
     public function anexos()
     {
         
-        return $this->hasMany(Anexo::class, foreignKey: 'manifestacao_id');
+        return $this->hasMany(Anexo::class, 'manifestacao_id');
 
     }
 }

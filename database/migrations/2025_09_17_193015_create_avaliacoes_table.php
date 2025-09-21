@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('avaliacoes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->integer('nota');
             $table->string('pagina');
             $table->string('nome');

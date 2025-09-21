@@ -51,7 +51,12 @@ Route::get('/manifestacoes/{id}/anexos', [OuvidoriaController::class, 'anexos'])
 
 Route::get('/avaliacao', [OuvidoriaController::class, 'avaliacaoCreate'])->name('avaliacao.create');
 Route::post('/avaliacao', [OuvidoriaController::class, 'avaliacaoStore'])->name('avaliacaoStore');
-Route::get('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntacreate'])->name('avaliacoes.create');
+Route::get('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaCreate'])->name('avaliacoes.create');
+Route::post('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaStore'])->name('avaliacoesperguntaStore');
+
+Route::get('/avaliacoes/relatorio', [OuvidoriaController::class, 'relatorio'])
+    ->name('avaliacoes.relatorio');
+
 });
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

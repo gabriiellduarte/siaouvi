@@ -30,7 +30,6 @@ return new class extends Migration {
             $table->string('forma_contato');
             $table->string('natureza');
             $table->text('mensagem')->nullable();
-            $table->string('anexos')->nullable();
             $table->timestamps();
             
 
