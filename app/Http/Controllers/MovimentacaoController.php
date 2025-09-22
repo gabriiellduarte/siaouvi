@@ -13,7 +13,7 @@ class MovimentacaoController extends Controller
   public function create($manifestacaoId) 
   {
         $manifestacao = Manifestacao::findOrFail($manifestacaoId);
-        return view('movimentacao.create', compact('manifestacao'));
+        return view('movimentacao', compact('manifestacao'));
   }
 
  public function store(Request $request, $manifestacaoId)
@@ -31,7 +31,7 @@ class MovimentacaoController extends Controller
             'secretaria' => $request->secretaria,
         ]);
 
-        return redirect()->route('manifestacoes.show', $manifestacaoId)
+        return redirect()->route('movimentacao.show', $manifestacaoId)
             ->with('success', 'Movimentação registrada com sucesso!');
     }
 

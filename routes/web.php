@@ -6,13 +6,8 @@ use App\Http\Controllers\MovimentacaoController;;
 use App\Models\Manifestacao;
 use Inertia\Inertia;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('welcome', [OuvidoriaController::class, 'welcome'])->name('welcome');
-});
 
-Route::get('welcome', function() {
-    return view('welcome');
-});
+
 
 Route::get('/', function () {
     return Inertia::render('welcome');
