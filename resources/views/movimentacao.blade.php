@@ -18,7 +18,7 @@
 
     <hr>
 
-    <h4>Histórico de Movimentações</h4>
+    <h4>Histórico de Movimentações:</h4>
 <table class="table">
     <thead>
         <tr>
