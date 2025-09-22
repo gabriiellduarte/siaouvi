@@ -149,8 +149,6 @@ class OuvidoriaController extends Controller
         $manifestacoes = Manifestacao::find($request->id);
         //return $manifestacao;
         return view('show', compact('manifestacoes'));
-        
-        return view('show', compact('manifestacao'));
 
     }
     public function update(Request $request, $id)

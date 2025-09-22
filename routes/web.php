@@ -27,6 +27,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/ouvi/dashboard', [OuvidoriaController::class, 'dashboard'])->name('dashboardouvi');
     Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
     
+    Route::get('/funcoes', function () {
+        return view('funcoes');
+    });
+
     Route::get('/movimentacao', function () {
         $manifestacoes = Manifestacao::all();
         return view('movimentacao', compact('manifestacao'));
@@ -42,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ->name('manifestacoes.movimentacoes');
 
 });
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
 
