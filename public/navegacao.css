@@ -1,0 +1,56 @@
+/* Barra de navegação */
+.navbar {
+    background: #fff;
+    border-bottom: 2px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+/* Logo/título */
+.navbar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+}
+
+/* Links */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar ul li a {
+    color: #222;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    background: #f0f0f0;
+    color: #000;
+}
+
+/* Botão de destaque (igual ao botão que você já usa) */
+.navbar .btn {
+    background: #222;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.navbar .btn:hover {
+    background: #444;
+    transform: translateY(-1px);
+}

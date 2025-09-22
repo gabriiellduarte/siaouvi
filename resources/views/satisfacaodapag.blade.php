@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <link rel="stylesheet" href="../dashboard.css">
     <meta charset="UTF-8">
@@ -25,42 +27,105 @@
                     <option value="publicacoes.php" {{ request('pagina')==='publicacoes.php'?'selected':'' }}>Publicações</option>
                     <option value="campanha.php" {{ request('pagina')==='campanha.php'?'selected':'' }}>Campanha</option>
                     <option value="cartaservicos.php" {{ request('pagina')==='cartaservicos.php'?'selected':'' }}>Carta de Serviços</option>
+                    <option value="unidadedesaude.php" {{ request('pagina')==='unidadedesaude.php'?'selected':'' }}>Unidade de Saúde</option>
+                    <option value="servicos.php" {{ request('pagina')==='servicos.php'?'selected':'' }}>Serviços</option>
                     {{-- adicione mais opções --}}
                 </select>
             </div>
             <div class="col">
-                <select name="mostrar_anonimos" class="form-control">
-                    <option value="">Todas</option>
-                    <option value="1" {{ request('mostrar_anonimos')==='1'?'selected':'' }}>Somente anônimos</option>
-                    <option value="0" {{ request('mostrar_anonimos')==='0'?'selected':'' }}>Somente identificados</option>
-                </select>
-            </div>
-            <div class="col">
+            <div class="col d-flex align-items-center gap-2">
+            <!-- Filtro por satisfação -->
+            <option value="10" name="nota"><span  style="color:green; font-size:2em;">😁</span></option>
+            <button type="submit" name="nota" value="10" class="btn-sem-estilo" title="Muito satisfeito">
+                <span  style="color:green; font-size:2em;">😁</span>
+            </button>
+            <button type="submit" name="nota" value="8" class="btn-sem-estilo" title="Satisfeito">
+                <span  style="color:lightgreen; font-size:2em;">😊</span>
+            </button>
+            <button type="submit" name="nota" value="6" class="btn-sem-estilo" title="Neutro">
+                <span  style=" font-size:2em;">😐</span>
+            </button>
+            <button type="submit" name="nota" value="4" class="btn-sem-estilo" title="Neutro">
+                <span  style=" font-size:2em;">☹️</span>
+            </button>
+            <button type="submit" name="nota" value="2" class="btn-sem-estilo" title="Insatisfeito">
+                <span  style="color:red; font-size:2em;">😞</span>
+            </button>
+        </div>
                 <button type="submit" class="btn btn-primary">Filtrar</button>
             </div>
+            
+            
         </div>
+        
     </form>
-
     {{-- tabela --}}
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>visualizar</th>
+                <th>Nota</th>
                 <th>id</th>
                 <th>Nome</th>
                 <th>E-mail</th>
+                <th>Pagina</th>
                 <th>Data/Hora</th>
-                <th>Anônimo?</th>
+                
             </tr>
         </thead>
         <tbody>
-        @forelse ($manifestacoes as $manifestacao)
+        @forelse ($avaliacoes as $avaliacao)
             <tr>
-                <td>{{ $manifestacao->id }}</td>
-                <td>{{ $manifestacao->anonimo ? 'ANÔNIMO' : $manifestacao->nome }}</td>
-                <td>{{ $manifestacao->anonimo ? '---' : $manifestacao->email }}</td>
-                <td>{{ $manifestacao->created_at->format('d/m/Y H:i') }}</td>
-                <td>{{ $manifestacao->anonimo ? 'Sim' : 'Não' }}</td>
+                <td>
+                    <button type="button" onclick="openModal({{ $avaliacao->id }})">Visualizar</button>
+                </td>
+                <td>
+                    @if($avaliacao->nota >= 10)
+                        <span  style="color:green; font-size:1.5em;">😁10</span>
+                    @elseif($avaliacao->nota == 8)
+                        <span  style="color:rgb(0, 255, 76); font-size:1.5em;">😊8</span>
+                        @elseif ($avaliacao->nota <= 6)
+                        <span style="color:orange; font-size: 1.5rem;">😐6</span>
+                        @elseif ($avaliacao->nota <= 4)
+                        <span style="color:rgb(255, 165, 0); font-size: 1.5rem;">☹️4</span>
+                    @elseif ($avaliacao->nota <= 2)
+                        <span  style="color:red; font-size:1.5em;">😞2</span>
+                    @endif
+                </td>
+                <td>{{ $avaliacao->id }}</td>
+                <td>{{ $avaliacao->anonimo ? 'ANÔNIMO' : $avaliacao->nome }}</td>
+                <td>{{ $avaliacao->anonimo ? '---' : $avaliacao->email }}</td>
+                <td>{{ $avaliacao->pagina }}</td>
+                <td>{{ $avaliacao->created_at->format('d/m/Y H:i') }}</td>
             </tr>
+            <!-- Modal para cada manifestação -->
+            <div id="modal-{{ $avaliacao->id }}" class="modal-satisfacao" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:9999;">
+                <div style="background:#fff; margin:10% auto; padding:20px; width:400px; position:relative;">
+                    <h4>Informações da Manifestação</h4>
+                    <p><strong>Nota:</strong> {{ $avaliacao->nota }}</p>
+                    <p><strong>ID:</strong> {{ $avaliacao->id }}</p>
+                    <p><strong>Nome:</strong> {{ $avaliacao->anonimo ? 'ANÔNIMO' : $avaliacao->nome }}</p>
+                    <p><strong>E-mail:</strong> {{ $avaliacao->anonimo ? '---' : $avaliacao->email }}</p>
+                    <p><strong>Data/Hora:</strong> {{ $avaliacao->created_at->format('d/m/Y H:i') }}</p>
+                    <p><strong>Anônimo?</strong> {{ $avaliacao->anonimo ? 'Sim' : 'Não' }}</p>
+                    <p>
+    <strong>Satisfação:</strong>
+    @if($avaliacao->nota >= 10)
+        <span  style="color:green; font-size:2em;"></span>
+    @elseif($avaliacao->nota == 8)
+        <span  style="color:orange; font-size:2em;">😊</span>
+    @elseif ($avaliacao->nota <= 6)
+        <span  style="color:orange; font-size:2em;">😐</span>
+        @elseif ($avaliacao->nota <= 4)
+        <span style="color:red; font-size:2em;">☹️</span>
+    @elseif ($avaliacao->nota <= 2)
+        <span  style="color:red; font-size:2em;">😞</span>
+    @endif
+</p>
+                    <textarea name="observacao" id="observacao-{{ $avaliacao->id }}"></textarea>
+                    <button onclick="closeModal({{ $avaliacao->id }})">Fechar</button>
+                </div>
+            </div>
         @empty
             <tr>
                 <td colspan="6">Nenhuma manifestação encontrada.</td>
@@ -69,12 +134,18 @@
         </tbody>
     </table>
 
-    {{ $manifestacoes->links() }}
+    {{ $avaliacoes->links() }}
 </div>
 
-
+<script>
+function openModal(id) {
+    document.getElementById('modal-' + id).style.display = 'block';
+}
+function closeModal(id) {
+    document.getElementById('modal-' + id).style.display = 'none';
+}
+</script>
 </body>
 </html>
 
 
-    
