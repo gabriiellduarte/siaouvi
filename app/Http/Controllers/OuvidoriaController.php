@@ -149,7 +149,7 @@ class OuvidoriaController extends Controller
         $manifestacoes = Manifestacao::find($request->id);
         //return $manifestacao;
         return view('show', compact('manifestacoes'));
-
+        
     }
     public function update(Request $request, $id)
     {
@@ -193,13 +193,8 @@ class OuvidoriaController extends Controller
 
 
         $query = Manifestacao::query();
-    
-    
-        
-    // Aplicando filtros
-    if ($request->filled('filter.inicio')) {
-        $query->whereDate('created_at', '>=', $request->input('filter.inicio'));
-    }
+
+        $query->with('anexos');
 
 
         // se quiser já trazer os anexos junto

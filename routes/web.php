@@ -38,12 +38,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/manifestacoes/{id}/movimentacoes/criar', [MovimentacaoController::class, 'create'])->name('movimentacoes.create');
     Route::post('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'store'])->name('movimentacoes.store');
+<<<<<<< HEAD
+=======
+    Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'show'])->name('movimentacao.show');
+    Route::get('/movimentacao', function () {
+        return view('movimentacao');
+    });
+
+    Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
+     ->name('satisfacaodapag.index');
+
+>>>>>>> mario
     Route::post('/manifestacoes/{id}/movimentar', [MovimentacaoController::class, 'storeMovimentacao'])
     ->name('manifestacoes.movimentar.store');
     Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'showMovimentacao'])->name('movimentacao.show');
     Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'movimentacoes'])->name('manifestacoes.movimentacoes');
     Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'showMovimentacao'])
     ->name('manifestacoes.movimentacoes');
+<<<<<<< HEAD
+=======
+
+    Route::get('/usuarios', [App\Http\Controllers\UsuariosController::class, 'index'])->name('usuarios.index');
+    Route::get('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'show'])->name('usuarios.show');
+    Route::get('/usuarios/create', [App\Http\Controllers\UsuariosController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios', [App\Http\Controllers\UsuariosController::class, 'store'])->name('usuarios.store');
+    Route::get('/usuarios/{id}/edit', [App\Http\Controllers\UsuariosController::class, 'edit'])->name('usuarios.edit');
+    Route::put('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'update'])->name('usuarios.update');
+    Route::delete('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
+    Route::post('/usuarios/{id}/roles', [App\Http\Controllers\UsuariosController::class, 'updateRoles'])->name('usuarios.roles.update');
+>>>>>>> mario
 
 });
 
