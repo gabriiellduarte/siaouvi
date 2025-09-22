@@ -27,7 +27,6 @@ class Manifestacao extends Model
         'forma_contato',
         'natureza',
         'mensagem',
-        'anexos',
 
     ];
     
