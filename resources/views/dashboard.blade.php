@@ -185,16 +185,22 @@
                         <td>{{ $manifestacao->natureza }}</td>
                         <td>{{ count($manifestacao->anexos ?? []) > 0 ? 'Sim' : 'Não' }}</td>
 
-                        <td>
-                            <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
-                            <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
-                                style="display:inline;">
-                                @csrf
-                                <button type="submit">Excluir</button>
-                           
-                                <button><href={{ route('movimentacao.show', $manifestacao->id) }}>Andamento</a></button>
-                            </form>
-</table>
+                            <td>
+                                <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
+                                <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">Excluir</button>
+
+                                </form><button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </body>
 

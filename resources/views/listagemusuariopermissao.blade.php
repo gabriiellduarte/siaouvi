@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../dashboard.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listagem Usuários</title>
@@ -25,23 +26,16 @@
 
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td><select name="" id="">
-                        <option value="selecione">Selecione a função...</option>
-                        <option value="f1">Função 1</option>
-                        <option value="f2">Função 2</option>
-                        <option value="f3">Função 3</option>
-                    </select>
-                        {{-- @foreach ($user->roles as $role)
-                            <span>{{ $role->name }}</span>
-                        @endforeach --}}
-                    </td>
+                    <td>Funções</td>
                     <td>
                         @foreach ($user->getRoleNames() as $role)
                             <span>{{ $role }}</span>
                         @endforeach
                     </td>
                     <td>
-                        <a href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
+                        <button>
+                            <a href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
+                        </button>
                         <form action="{{ route('usuarios.destroy', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

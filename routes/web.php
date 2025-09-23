@@ -7,12 +7,15 @@ use App\Http\Controllers\FuncaoController;
 use App\Http\Controllers\PermissaoController;
 use App\Models\Manifestacao;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Role;
 
+
+
+//Página inicial
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+//Rotas protegidas
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
@@ -27,10 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/ouvi/dashboard', [OuvidoriaController::class, 'dashboard'])->name('dashboardouvi');
     Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
     
-    Route::get('/funcoes', function () {
-        return view('funcoes');
-    });
-
+    //pagina de movimentação
     Route::get('/movimentacao', function () {
         $manifestacoes = Manifestacao::all();
         return view('movimentacao', compact('manifestacao'));
@@ -46,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
      ->name('satisfacaodapag.index');
 
+     //Rotas de movimentação
     Route::post('/manifestacoes/{id}/movimentar', [MovimentacaoController::class, 'storeMovimentacao'])
     ->name('manifestacoes.movimentar.store');
     Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'showMovimentacao'])->name('movimentacao.show');
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'showMovimentacao'])
     ->name('manifestacoes.movimentacoes');
 
+    //Rotas de Usuários
     Route::get('/usuarios', [App\Http\Controllers\UsuariosController::class, 'index'])->name('usuarios.index');
     Route::get('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'show'])->name('usuarios.show');
     Route::get('/usuarios/create', [App\Http\Controllers\UsuariosController::class, 'create'])->name('usuarios.create');
@@ -60,12 +62,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/usuarios/{id}/edit', [App\Http\Controllers\UsuariosController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
-    Route::post('/usuarios/{id}/roles', [App\Http\Controllers\UsuariosController::class, 'updateRoles'])->name('usuarios.roles.update');
 
-    Route::get('/listapermissoes', function() {
-        $role = Role::create(['name' => 'writer']);
-        $regra = Role::all();
-            return $regra;
+
+    Route::put('usuarios/{user}/roles', [App\Http\Controllers\UsuariosController::class,'updateRoles'])->name('usuarios.update.roles');
+    Route::put('usuarios/{user}/permissions', [App\Http\Controllers\UsuariosController::class,'updatePermissions'])->name('usuarios.update.permissions');
+
+    Route::get('/listadefuncao', function() {
+        return view('listadefuncao');
     });
 });
 
