@@ -9,9 +9,10 @@
   </thead>
   <form action="">
   <tbody>
- 
-    <td></td>
-    <td></td>
+  @foreach($roles as $role)
+    <td>{{ $roles }}</td>
+  @endforeach
+    <td><button>Lista de permissões</button></td>
 
   </tbody>
 </form>

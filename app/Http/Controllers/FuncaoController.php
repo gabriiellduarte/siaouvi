@@ -16,4 +16,5 @@ $user = User::find (2);
 $user-> assignRole('Ouvidor Setorial');
 
 $roles = Role::all();
+
   
