@@ -62,8 +62,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
 
 
-    Route::put('usuarios/{user}/roles', [App\Http\Controllers\UsuariosController::class,'updateRoles'])->name('usuarios.update.roles');
-    Route::put('usuarios/{user}/permissions', [App\Http\Controllers\UsuariosController::class,'updatePermissions'])->name('usuarios.update.permissions');
+    Route::get('/permissions', [App\Http\Controllers\PermissionController::class, 'index'])->name('permissions.index');
+    Route::post('/usuarios/{user}/permissions', [App\Http\Controllers\PermissionController::class, 'givePermission'])->name('usuarios.givePermission');
+    Route::post('/permissions', [App\Http\Controllers\PermissionController::class, 'store'])->name('permissions.store');
+
 
 });
 require __DIR__.'/settings.php';
