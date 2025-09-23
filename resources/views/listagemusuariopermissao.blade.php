@@ -21,11 +21,16 @@
         <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <th scope="row"><a
-                                    href="{{ route('usuarios.show', $user->id) }}">{{ $loop->index + 1 }}</a></th>
+                    <th scope="row"><a href="{{ route('usuarios.show', $user->id) }}">{{ $loop->index + 1 }}</a></th>
+
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
+                    <td><select name="" id="">
+                        <option value="selecione">Selecione a função...</option>
+                        <option value="f1">Função 1</option>
+                        <option value="f2">Função 2</option>
+                        <option value="f3">Função 3</option>
+                    </select>
                         {{-- @foreach ($user->roles as $role)
                             <span>{{ $role->name }}</span>
                         @endforeach --}}

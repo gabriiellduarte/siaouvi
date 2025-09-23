@@ -143,7 +143,7 @@
                     </div>
 
                 </form>
-                
+
             </div>
         </header>
     </div>
@@ -171,30 +171,30 @@
                 </thead>
                 <tbody>
                     @foreach($manifestacoes as $manifestacao)
-                        <tr>
-                            <th scope="row"><a
-                                    href="{{ route('dashboardouvi', $manifestacao->id) }}">{{ $loop->index + 1 }}</a></th>
-                            <td>{{ $manifestacao->anonimo == 1 ? 'Sim' : 'Não' }}</td>
+                    <tr>
+                        <th scope="row"><a
+                                href="{{ route('dashboardouvi', $manifestacao->id) }}">{{ $loop->index + 1 }}</a></th>
+                        <td>{{ $manifestacao->anonimo == 1 ? 'Sim' : 'Não' }}</td>
 
-                            <td>{{ $manifestacao->anonimo ? 'ANÔNIMO' : $manifestacao->nome }}</td>
-                            <td>{{ $manifestacao->anonimo ? '-------' : $manifestacao->email }}</td>
-                            <td>{{ $manifestacao->cpf }}</td>
-                            <td>{{ $manifestacao->created_at }}</td>
-                            <td>{{ $manifestacao->updated_at }}</td>
-                            <td>{{ $manifestacao->secretaria }}</td>
-                            <td>{{ $manifestacao->natureza }}</td>
-                            <td>{{ count($manifestacao->anexos ?? []) > 0 ? 'Sim' : 'Não' }}</td>
+                        <td>{{ $manifestacao->anonimo ? 'ANÔNIMO' : $manifestacao->nome }}</td>
+                        <td>{{ $manifestacao->anonimo ? '-------' : $manifestacao->email }}</td>
+                        <td>{{ $manifestacao->cpf }}</td>
+                        <td>{{ $manifestacao->created_at }}</td>
+                        <td>{{ $manifestacao->updated_at }}</td>
+                        <td>{{ $manifestacao->secretaria }}</td>
+                        <td>{{ $manifestacao->natureza }}</td>
+                        <td>{{ count($manifestacao->anexos ?? []) > 0 ? 'Sim' : 'Não' }}</td>
 
-                            <td>
-                                <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
-                                <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">Excluir</button>
-                                    
-                                </form><button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
-                                
+                        <td>
+                            <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
+                            <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
+                                style="display:inline;">
+                                @csrf
+                                <button type="submit">Excluir</button>
+                           
+                                <button><href={{ route('movimentacao.show', $manifestacao->id) }}>Andamento</a></button>
+                            </form>
+</table>
 
 </body>
 
