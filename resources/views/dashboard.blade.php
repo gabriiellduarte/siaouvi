@@ -192,9 +192,15 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
-                                    
-                                </form><button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button> 
-                                
+
+                                </form><button><a href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </body>
 
