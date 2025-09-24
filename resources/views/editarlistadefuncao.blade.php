@@ -1,19 +1,10 @@
-<h3>Lista de função:</h3>
-<table border="1">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Permissões</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <form action="">
-  <tbody>
-  @foreach($roles as $role)
-    <td>{{ $role->name }}</td>
-  @endforeach
-    <td><button>Lista de permissões</button></td>
+<h3>Editar função</h3>
 
-  </tbody>
+  <form action="{{ route('listadefuncao.update', $role->id) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <input type="text" name="name" value="{{ $role->name }}" required>
+    <button type="submit">Atualizar</button>
+  
 </form>
 </table>

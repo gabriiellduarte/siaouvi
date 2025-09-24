@@ -24,19 +24,16 @@ use Spatie\Permission\Models\Role;
     public function edit($id)
     {
       $role = Role::findById($id);
-        return view('editarlistadefuncao', compact('roles'));
+        return view('editarlistadefuncao', compact('role'));
     }
 
     public function update(Request $request, $id) 
     {
-      $request -> validate([
-        'name' => 'required|unique: roles.name', $id,
-      ]);
+  
       $role = Role::findById($id);
-      $role->name-$request->input('name');
+      $role->name = $request->input('name');
       $role->save();
-      return redirect()->route('listadefuncao.index')->with('Sucesso! Função alterada com sucesso!');
-    }
+        return redirect()->route('listadefuncao.index')->with('success', 'Função alterada com sucesso!');    }
 
     public function store(Request $request)
     {
@@ -44,5 +41,13 @@ use Spatie\Permission\Models\Role;
   
     Role::create(['name'=>$request->input('name')]);
       return redirect()->route('listadefuncao.index')->with('Sucesso! Função criada com sucesso!');
+    }
+
+    public function destroy($id) 
+    {
+      $role = Role::findOrFail($id);
+      $role->delete();
+        return redirect()->route('listadefuncao.index')->with('success', 'Função excluída com sucesso!');
+
     }
 }

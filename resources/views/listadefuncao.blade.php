@@ -4,20 +4,24 @@
     <tr>
       <th>ID</th>
       <th>Nome</th>
-      <th>Permissões</th>
       <th>Ações</th>
     </tr>
   </thead>
-  <form action="">
   <tbody>
   @foreach($roles as $role)
   <tr>
     <td>{{ $role->id }}</td>
     <td>{{ $role->name }}</td>
+    <td><button><a href="{{ route('listadefuncao.edit', $role->id) }}">Editar função</a></button> 
+    <form action="{{ route('listadefuncao.destroy', $role->id) }}" method="POST">
+      @csrf
+    @method('DELETE')
+    <button type="submit">Excluir função</button></td>
+   </form>
   </tr>
   @endforeach
 
   </tbody>
-</form>
+
   <a href="{{ route('listadefuncao.create') }}">Criar nova função</a>
 </table>
