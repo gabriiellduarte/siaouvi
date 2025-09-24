@@ -4,17 +4,46 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use  Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Http\Request;
 
-Role::create(['name' => 'Ouvidor Geral']);
-Role::create([ 'name' => 'Ouvidor Setorial']);
+  class FuncaoController extends Controller
+  {
+ 
+    public function index() 
+    {
 
-// Para atribuir função ao usuário
-$user = User::find (1); 
-$user-> assignRole('Ouvidor Geral');
+  $roles = Role::all();
+    return view('/listadefuncao', compact('roles'));
+    }
 
-$user = User::find (2);
-$user-> assignRole('Ouvidor Setorial');
+    public function create()
+    {
+      return view('/criarlistadefuncao');
+    }
 
-$roles = Role::all();
+    public function edit($id)
+    {
+      $role = Role::findById($id);
+        return view('editarlistadefuncao', compact('role'));
+    }
 
-  
+    public function update(Request $request, $id) 
+    {
+      $request -> validate([
+        'name' => 'required|unique: roles.name', $id,
+      ]);
+      $role = Role::findById($id);
+      $role->name-$request->input('name');
+      $role->save();
+      return redirect()->route('listadefuncao.index')->with('Sucesso! Função alterada com sucesso!');
+    }
+
+    public function store(Request $request)
+    {
+    $request -> validate([
+      'name' => 'required|unique: roles.name',
+    ]);
+    Role::create(['name'=>$request->input('name')]);
+      return redirect()->route('listadefuncao.index')->with('Sucesso! Função criada com sucesso!');
+    }
+}

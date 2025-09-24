@@ -62,14 +62,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/usuarios/{id}/edit', [App\Http\Controllers\UsuariosController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
-
-
     Route::put('usuarios/{user}/roles', [App\Http\Controllers\UsuariosController::class,'updateRoles'])->name('usuarios.update.roles');
     Route::put('usuarios/{user}/permissions', [App\Http\Controllers\UsuariosController::class,'updatePermissions'])->name('usuarios.update.permissions');
 
-    Route::get('/listadefuncao', function() {
-        return view('listadefuncao');
-    });
+    
+    //Rotas de listagem de função
+    Route::get('/listadefuncao', [App\Http\Controllers\FuncaoController::class, 'index'])->name('listadefuncao.index');
+    Route::post('/listadefuncao', [App\Http\Controllers\FuncaoController::class, 'store'])->name('listadefuncao.store');
+    Route::get('/criarlistadefuncao', [App\Http\Controllers\FuncaoController::class, 'create'])->name('listadefuncao.create');
+    Route::delete('/listadefuncoes/{id}', [App\Http\Controllers\FuncaoController::class, 'delete'])->name('listadefuncao.destroy');
+    Route::get('/listadefuncao/{id}/edit', [App\Http\Controllers\FuncaoController::class, 'edit'])->name('listadefuncao.edit');
+    Route::put('/listadefuncao/{id}', [App\Http\Controllers\FuncaoController::class, 'update'])->name('listadefuncao.update');
+
 });
 
 require __DIR__.'/settings.php';

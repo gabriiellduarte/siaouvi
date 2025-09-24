@@ -10,13 +10,10 @@
   <form action="">
   <tbody>
   @foreach($roles as $role)
-  <tr>
     <td>{{ $role->name }}</td>
-  </tr>
   @endforeach
-  <tr>
-<td></td>
-</tr>
+    <td><button>Lista de permissões</button></td>
+
   </tbody>
 </form>
 </table>
