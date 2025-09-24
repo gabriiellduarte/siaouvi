@@ -61,6 +61,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
 
+    //Atribuir funções e permissões ao usuário
+    Route::get('users/{id}/assign', [App\Http\Controllers\UsuariosController::class, 'showAssignForm'])->name('users.assign');
+    Route::post('users/{id}/assign', [App\Http\Controllers\UsuariosController::class, 'assignRolePermission'])->name('users.assign.save');
+
+
     //Rotas de permissões
     Route::get('/permissoes', [App\Http\Controllers\PermissionController::class, 'index'])->name('permissoes.index');
     Route::post('/permissoes', [App\Http\Controllers\PermissionController::class, 'store'])->name('permissoes.store');

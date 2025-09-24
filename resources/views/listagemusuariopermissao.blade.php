@@ -26,13 +26,17 @@
                                     href="{{ route('usuarios.show', $user->id) }}">{{ $loop->index + 1 }}</a></th>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>Funções</td>
-                    <td>
-                        @foreach ($user->getRoleNames() as $role)
-                            <span>{{ $role }}</span>
+                    <td>@foreach($user->roles as $role)
+                            <span>{{ $role->name }}</span><br>
                         @endforeach
                     </td>
                     <td>
+                        @foreach($user->permissions as $permission)
+                            <span>{{ $permission->name }}</span><br>
+                        @endforeach
+                    </td>
+                    <td>
+                        <button><a href="{{ route('users.assign', $user->id) }}">Atribuir Permissão</a></button>
                         <button>
                             <a href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
                         </button>

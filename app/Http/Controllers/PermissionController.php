@@ -48,6 +48,8 @@ class PermissionController extends Controller
 
         return redirect()->back()->with('success', 'Permissão criada com sucesso.');
     }
+
+    
     public function givePermission(Request $request, $userId)
     {
         $user = \App\Models\User::find($userId);

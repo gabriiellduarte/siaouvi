@@ -12,5 +12,6 @@
         <input type="text" name="name" placeholder="Nome da permissão" required>
         <button type="submit">Criar</button>
     </form>
+     <button><a href="{{ route('permissoes.index') }}">Ir para listagem</a></button>
 </body>
 </html>

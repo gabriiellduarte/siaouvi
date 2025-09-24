@@ -23,7 +23,9 @@
                     <td>{{ $permission->name }}</td>
                     <td>{{ $permission->guard_name }}</td>
                     <td>
-                        <a href="{{ route('permissoes.edit', $permission->id) }}">Editar</a>
+                        <button><a href="{{ route('permissoes.edit', $permission->id) }}">Editar</a></button>
+                        <button><a href="{{ route('permissoes.create', $permission->id) }}">Criar Permissão</a></button>
+                        
                         <form action="{{ route('permissoes.destroy', $permission->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta permissão?');">
                             @csrf
                             @method('DELETE')
