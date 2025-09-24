@@ -70,7 +70,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/listadefuncao', [App\Http\Controllers\FuncaoController::class, 'index'])->name('listadefuncao.index');
     Route::post('/listadefuncao', [App\Http\Controllers\FuncaoController::class, 'store'])->name('listadefuncao.store');
     Route::get('/criarlistadefuncao', [App\Http\Controllers\FuncaoController::class, 'create'])->name('listadefuncao.create');
-    Route::delete('/listadefuncoes/{id}', [App\Http\Controllers\FuncaoController::class, 'delete'])->name('listadefuncao.destroy');
+    Route::delete('/listadefuncoes/{id}', [App\Http\Controllers\FuncaoController::class, 'destroy'])->name('listadefuncao.destroy');
     Route::get('/listadefuncao/{id}/edit', [App\Http\Controllers\FuncaoController::class, 'edit'])->name('listadefuncao.edit');
     Route::put('/listadefuncao/{id}', [App\Http\Controllers\FuncaoController::class, 'update'])->name('listadefuncao.update');
 
