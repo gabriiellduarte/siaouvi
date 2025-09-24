@@ -1,19 +1,10 @@
 <h3>Lista de função:</h3>
-<table border="1">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Permissões</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <form action="">
-  <tbody>
-  @foreach($roles as $role)
-    <td>{{ $role->name }}</td>
-  @endforeach
-    <td><button>Lista de permissões</button></td>
-
-  </tbody>
-</form>
-</table>
+<body>
+  <form action="{{ route('listadefuncao.store') }}" method="POST">
+    @csrf
+    <label for="funcao">Nome da função</label>
+    <input type="text" id="funcao" name="name" placeholder="Digite o nome da nova função " required>
+    <button type="submit">Criar nova função</button>
+    </form>
+   <a href="{{ route(name: 'listadefuncao.index') }}">Voltar à lista de função</a>
+ </body>
