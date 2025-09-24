@@ -4,26 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
     //
     public function index()
     {
-        $ouvidorgeral = Role::firstOrCreate(['name' => 'ouvidor geral']);
-        $usuariocomum = Role::firstOrCreate(['name' => 'usuário comum']);
-
-        $editpermission = Permission::create(['name' => 'editar manifestação']);
-        $deletepermission = Permission::create(['name' => 'deletar manifestação']);
-        $viewpermission = Permission::create(['name' => 'visualizar manifestação']);
-
-        $ouvidorgeral->givePermissionTo([$editpermission, $deletepermission, $viewpermission]);
-        $usuariocomum->givePermissionTo([$viewpermission]);
-
 
         $permissions = Permission::all();
         return view('listagempermissao', compact('permissions'));
+    }
+    public function create()
+    {
+        return view('criarpermissao');
+    }
+
+    public function edit($id)
+    {
+        $permission = Permission::findById($id);
+        return view('editarpermissao', compact('permission'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|unique:permissions,name,'.$id,
+        ]);
+
+        $permission = Permission::findById($id);
+        $permission->name = $request->input('name');
+        $permission->save();
+
+        return redirect()->route('permissoes.index')->with('success', 'Permissão atualizada com sucesso.');
     }
 
     public function store(Request $request)

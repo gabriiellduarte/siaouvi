@@ -61,10 +61,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
 
-
-    Route::get('/permissions', [App\Http\Controllers\PermissionController::class, 'index'])->name('permissions.index');
-    Route::post('/usuarios/{user}/permissions', [App\Http\Controllers\PermissionController::class, 'givePermission'])->name('usuarios.givePermission');
-    Route::post('/permissions', [App\Http\Controllers\PermissionController::class, 'store'])->name('permissions.store');
+    //Rotas de permissões
+    Route::get('/permissoes', [App\Http\Controllers\PermissionController::class, 'index'])->name('permissoes.index');
+    Route::post('/permissoes', [App\Http\Controllers\PermissionController::class, 'store'])->name('permissoes.store');
+    Route::post('/usuarios/{id}/permissao', [App\Http\Controllers\PermissionController::class, 'givePermission'])->name('usuarios.givePermission');
+    Route::get('/criarpermissao', [App\Http\Controllers\PermissionController::class, 'create'])->name('permissoes.create');
+    Route::delete('/permissoes/{id}', [App\Http\Controllers\PermissionController::class, 'destroy'])->name('permissoes.destroy');
+    Route::get('/permissoes/{id}/edit', [App\Http\Controllers\PermissionController::class, 'edit'])->name('permissoes.edit');
+    Route::put('/permissoes/{id}', [App\Http\Controllers\PermissionController::class, 'update'])->name('permissoes.update');
 
 
 });

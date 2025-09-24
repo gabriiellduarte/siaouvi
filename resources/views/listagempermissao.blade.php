@@ -13,6 +13,7 @@
                 <th>ID</th>
                 <th>Nome da Permissão</th>
                 <th>Guard Name</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -21,13 +22,16 @@
                     <th scope="row">{{ $loop->index + 1 }}</th>
                     <td>{{ $permission->name }}</td>
                     <td>{{ $permission->guard_name }}</td>
+                    <td>
+                        <a href="{{ route('permissoes.edit', $permission->id) }}">Editar</a>
+                        <form action="{{ route('permissoes.destroy', $permission->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta permissão?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
-        {{-- <form action="{{ route('permissions.store') }}" method="POST">
-    @csrf
-    <input type="text" name="name" placeholder="Nome da permissão">
-    <button type="submit">Criar</button>
-</form> --}}
 </body>
 </html>
