@@ -22,8 +22,8 @@
         <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <th scope="row"><a
-                                    href="{{ route('usuarios.show', $user->id) }}">{{ $loop->index + 1 }}</a></th>
+                    <th scope="row"><a href="{{ route('usuarios.show', $user->id) }}">{{ $loop->index + 1 }}</a></th>
+
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>@foreach($user->roles as $role)
