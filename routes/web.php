@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\MovimentacaoController;;
 use App\Http\Controllers\FuncaoController;
-use App\Http\Controllers\PermissaoController;
+use App\Http\Controllers\PermissionController;
 use App\Models\Manifestacao;
 use Inertia\Inertia;
 
@@ -73,7 +73,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Rotas de permissões
     Route::get('/permissoes', [App\Http\Controllers\PermissionController::class, 'index'])->name('permissoes.index');
     Route::post('/permissoes', [App\Http\Controllers\PermissionController::class, 'store'])->name('permissoes.store');
-    Route::post('/usuarios/{id}/permissao', [App\Http\Controllers\PermissionController::class, 'givePermission'])->name('usuarios.givePermission');
     Route::get('/criarpermissao', [App\Http\Controllers\PermissionController::class, 'create'])->name('permissoes.create');
     Route::delete('/permissoes/{id}', [App\Http\Controllers\PermissionController::class, 'destroy'])->name('permissoes.destroy');
     Route::get('/permissoes/{id}/edit', [App\Http\Controllers\PermissionController::class, 'edit'])->name('permissoes.edit');
