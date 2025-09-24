@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\MovimentacaoController;;
 use App\Http\Controllers\FuncaoController;
-use App\Http\Controllers\PermissaoController;
+use App\Http\Controllers\PermissionController;
 use App\Models\Manifestacao;
 use Inertia\Inertia;
 
@@ -64,6 +64,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/usuarios/{id}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
     Route::put('usuarios/{user}/roles', [App\Http\Controllers\UsuariosController::class,'updateRoles'])->name('usuarios.update.roles');
     Route::put('usuarios/{user}/permissions', [App\Http\Controllers\UsuariosController::class,'updatePermissions'])->name('usuarios.update.permissions');
+
+    //Atribuir funções e permissões ao usuário
+    Route::get('users/{id}/assign', [App\Http\Controllers\UsuariosController::class, 'showAssignForm'])->name('users.assign');
+    Route::post('users/{id}/assign', [App\Http\Controllers\UsuariosController::class, 'assignRolePermission'])->name('users.assign.save');
+
+
+    //Rotas de permissões
+    Route::get('/permissoes', [App\Http\Controllers\PermissionController::class, 'index'])->name('permissoes.index');
+    Route::post('/permissoes', [App\Http\Controllers\PermissionController::class, 'store'])->name('permissoes.store');
+    Route::get('/criarpermissao', [App\Http\Controllers\PermissionController::class, 'create'])->name('permissoes.create');
+    Route::delete('/permissoes/{id}', [App\Http\Controllers\PermissionController::class, 'destroy'])->name('permissoes.destroy');
+    Route::get('/permissoes/{id}/edit', [App\Http\Controllers\PermissionController::class, 'edit'])->name('permissoes.edit');
+    Route::put('/permissoes/{id}', [App\Http\Controllers\PermissionController::class, 'update'])->name('permissoes.update');
+
 
     
     //Rotas de listagem de função

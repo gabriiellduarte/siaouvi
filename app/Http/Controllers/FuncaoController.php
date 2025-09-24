@@ -18,7 +18,7 @@ use Spatie\Permission\Models\Role;
 
     public function create()
     {
-      return view('/criarlistadefuncao');
+      return view('criarlistadefuncao');
     }
 
     public function edit($id)

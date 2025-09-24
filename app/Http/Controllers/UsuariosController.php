@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use App\Models\User; 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UsuariosController extends Controller
 {
@@ -9,8 +11,8 @@ class UsuariosController extends Controller
     {
         $users = User::all();
          $users = User::with(['roles', 'permissions'])->get();
-    $roles = \Spatie\Permission\Models\Role::all();
-    $permissions = \Spatie\Permission\Models\Permission::all();
+    $roles = Role::all();
+    $permissions = Permission::all();
 
     return view('listagemusuariopermissao', compact('users','roles','permissions'));
     }
@@ -50,5 +52,32 @@ class UsuariosController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso.');
     }
 
-    
+    public function showAssignForm($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('atribuirfuncaoepermissao', compact('user', 'roles', 'permissions'));
+    }
+
+    public function assignRolePermission(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // atribuir roles
+        if($request->roles){
+            $user->syncRoles($request->roles);
+        }
+
+        // atribuir permissões
+        if($request->permissions){
+            $user->syncPermissions($request->permissions);
+        }
+
+        return redirect()->back()->with('success','Permissões/roles atribuídas!');
+    }
 }
+
+    
+
