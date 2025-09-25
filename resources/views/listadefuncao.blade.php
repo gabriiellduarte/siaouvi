@@ -14,12 +14,11 @@
   <tbody>
   @forelse($roles as $role)
   <tr>
-      <td>{{ $role->id }}</td>
-      <td>{{ $role->name }}</td>
-      @can('editar função')
-      <td><button class="btn btn-dark"><a href="{{ route('listadefuncao.edit', $role->id) }}">Editar função</a></button> 
-      @endcan
-      <form action="{{ route('listadefuncao.destroy', $role->id) }}" method="POST">
+    <td>{{ $role->id }}</td>
+    <td>{{ $role->name }}</td>
+    <td><button><a href="{{ route('listadefuncao.edit', $role->id) }}">Editar função</a></button> 
+      <button><a href="{{ route('funcao.atribuirpermissoes', $role->id) }}">Atribuir permissões</a></button>
+    <form action="{{ route('listadefuncao.destroy', $role->id) }}" method="POST">
       @csrf
       @method('DELETE')
       @can('excluir função')
