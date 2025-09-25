@@ -7,6 +7,7 @@ use App\Http\Controllers\FuncaoController;
 use App\Http\Controllers\PermissionController;
 use App\Models\Manifestacao;
 use Inertia\Inertia;
+use Illuminate\Validation\Rules\Can;
 
 
 
@@ -23,14 +24,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
 //     Route::middleware(['auth', 'role:admin'])->group(function () {
-//     // rotas de roles
-//     // rotas de permissões
-//     // rotas de atribuição
-// });
+// //     // rotas de roles
+// //     // rotas de permissões
+// //     // rotas de atribuição
+//  });
+
 
     //SISTEMA ANTIGO
-    Route::get('/ouvidoria', [OuvidoriaController::class, 'create'])->name('ouvidoria.form');
-    Route::post('/ouvidoria', [OuvidoriaController::class, 'store'])->name('ouvidoria.store');
+Route::group(['middleware' => ['can:editar manifestações']], function () { 
+    
     Route::get('/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidoria.show');
     Route::get('/edicao/{id}', [OuvidoriaController::class, 'edit'])->name('ouvidoria.edicao');
     Route::delete('/delete/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidoria.destroy');
@@ -38,7 +40,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
     Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
      ->name('satisfacaodapag.index');
-
+     });
+  Route::get('/ouvidoria', [OuvidoriaController::class, 'create'])->name('ouvidoria.form');
+    Route::post('/ouvidoria', [OuvidoriaController::class, 'store'])->name('ouvidoria.store');
+   
      //Rotas de movimentação
     Route::post('/manifestacoes/{id}/movimentar', [MovimentacaoController::class, 'storeMovimentacao'])
     ->name('manifestacoes.movimentar.store');
@@ -72,6 +77,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/permissoes/{id}', [App\Http\Controllers\PermissionController::class, 'update'])->name('permissoes.update');
 
 
+
+    Route::get('/atribuirpermissoesafuncao/{id}', [FuncaoController::class, 'showAssignForm'])->name('funcao.atribuirpermissoes');
+Route::post('/atribuirpermissoesafuncao/{id}', [FuncaoController::class, 'assignPermissionRole'])->name('funcao.atribuirpermissoes.store');
+
+
+
     
     //Rotas de listagem de função
     Route::get('/listadefuncao', [App\Http\Controllers\FuncaoController::class, 'index'])->name('listadefuncao.index');
@@ -81,6 +92,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/listadefuncao/{id}/edit', [App\Http\Controllers\FuncaoController::class, 'edit'])->name('listadefuncao.edit');
     Route::put('/listadefuncao/{id}', [App\Http\Controllers\FuncaoController::class, 'update'])->name('listadefuncao.update');
 
+    //Rotas de avaliação
+    Route::get('/avaliacao', [OuvidoriaController::class, 'avaliacaoCreate'])->name('avaliacao.create');
+Route::post('/avaliacao', [OuvidoriaController::class, 'avaliacaoStore'])->name('avaliacaoStore');
+Route::get('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaCreate'])->name('avaliacoes.create');
+Route::post('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaStore'])->name('avaliacoesperguntaStore');
+
+Route::get('/avaliacoes/relatorio', [OuvidoriaController::class, 'relatorio'])
+    ->name('avaliacoes.relatorio');
 });
 
 require __DIR__.'/settings.php';

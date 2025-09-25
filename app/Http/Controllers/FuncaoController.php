@@ -50,4 +50,25 @@ use Spatie\Permission\Models\Role;
         return redirect()->route('listadefuncao.index')->with('success', 'Função excluída com sucesso!');
 
     }
+
+      // Exibe o formulário para atribuir permissões a uma função
+    public function showAssignForm($id)
+    {
+        $role = Role::findById($id); // busca a função pelo ID
+        $permissions = Permission::all(); // pega todas as permissões
+        return view('atribuirpermissoesafuncao', compact('role', 'permissions'));
+    }
+
+    // Salva as permissões atribuídas à função
+    public function assignPermissionRole(Request $request, $id)
+    {
+        $role = Role::findById($id); // busca a função pelo ID
+        $permissions = $request->input('permissions', []); // pega array de permissões do formulário
+
+        // Sincroniza as permissões: remove as que não foram selecionadas e adiciona as novas
+        $role->syncPermissions($permissions);
+
+        return redirect()->route('listadefuncao.index')->with('success', 'Permissões atribuídas à função com sucesso!');
+    }
+    
 }

@@ -13,6 +13,7 @@
     <td>{{ $role->id }}</td>
     <td>{{ $role->name }}</td>
     <td><button><a href="{{ route('listadefuncao.edit', $role->id) }}">Editar função</a></button> 
+      <button><a href="{{ route('funcao.atribuirpermissoes', $role->id) }}">Atribuir permissões</a></button>
     <form action="{{ route('listadefuncao.destroy', $role->id) }}" method="POST">
       @csrf
     @method('DELETE')
