@@ -1,21 +1,26 @@
 <html>
-<head>
-   
-
+<head>   
     <title>Formulário de Ouvidoria</title>
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>teste</h1>
-    <div class="main-container">
+        <div class="main-container">
         <h2 class="info-title">ouvidoria - formulário</h2>
     <div class="form-container">
         <h1 class="form-title">Formulário de Ouvidoria</h1>
-        <form action="{{ route('ouvidoria.store') }}" method="POST" enctype="multipart/form-data" class="ouvidoria-form">
+        <form for="ouvidoria" action="{{ route('ouvidoria.store') }}" method="POST" enctype="multipart/form-data" class="ouvidoria-form">
             @csrf
-
+            {{-- enviar de forma anonima --}}
             <div class="form-group">
+                <label class="block mb-2">
+        <input type="checkbox" id="anonimo" name="anonimo" value="1">
+        Enviar como anônimo
+    </label>
+            </div>
+            <div class="user-info " id="user-info">
+                <div class="form-group">
                 <label for="name" class="form-label">Nome:</label>
                 <input type="text" id="name" name="name" class="form-input" required>
             </div>
@@ -30,7 +35,7 @@
                 <input type="date" id="date" name="date" class="form-input" required>
             </div>
 
-            <div class="form-group">
+            
                 <label for="gender" class="form-label">Sexo:</label>
                 <select id="gender" name="gender" class="form-select" required>
                     <option value="">Selecione...</option>
@@ -38,9 +43,7 @@
                     <option value="feminino">Feminino</option>
                     <option value="outro">Outro</option>
                 </select>
-            </div>
-
-            <div class="form-group">
+                <div class="form-group">
                 <label for="grau_instrucao" class="form-label">Grau de instrução:</label>
                 <select name="grau_instrucao" id="grau_instrucao" class="form-select">
                     <option value="">Selecione...</option>
@@ -70,10 +73,16 @@
                 <label for="contato" class="form-label">Contato:</label>
                 <input type="tel" id="contato" name="contato" class="form-input" required>
             </div>
+            </div>
+
+            
+            </div>
+
+            
             <h2 class="info-title">Informações da manifestação</h2>
             <div class="form-group">
-                <label for="secretaria_id" class="form-label">Secretaria de destino da manifestação</label>
-                <select name="secretaria_id" id="secretaria_id" class="form-select" required>
+                <label for="secretaria" class="form-label">Secretaria de destino da manifestação</label>
+                <select name="secretaria" id="secretaria" class="form-select" required>
                     <option value="">Selecione...</option>
                     <option value="secretaria1">Secretaria 1</option>
                     <option value="secretaria2">Secretaria 2</option>
@@ -120,6 +129,29 @@
     </div>
     </div>
    
+    <script>
+    const anonimoCheckbox = document.getElementById('anonimo');
+    const userFields = document.getElementById('user-info');
+
+    anonimoCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+        userFields.style.display = 'none';
+        // remover required dos campos ocultos
+        userFields.querySelectorAll('input, select, textarea').forEach(el => {
+            el.removeAttribute('required');
+            el.value = ''; // limpa valores
+        });
+    } else {
+        userFields.style.display = 'block';
+        // recolocar required
+        userFields.querySelectorAll('input, select, textarea').forEach(el => {
+            if (el.dataset.required === 'true') {
+                el.setAttribute('required', 'required');
+            }
+        });
+    }
+});
+</script>
     
 </body>
 </html>

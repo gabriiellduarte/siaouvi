@@ -14,6 +14,7 @@ class Anexo extends Model
 
     public function manifestacao()
     {
-        return $this->belongsTo(Manifestacao::class);
+        return $this->belongsTo(Manifestacao::class, foreignKey: 'manifestacao_id');
     }
+
 }

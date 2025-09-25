@@ -8,6 +8,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('anexos', function (Blueprint $table) {
+
+            
             $table->id();
             
             $table->foreignId('manifestacao_id')
@@ -16,6 +18,7 @@ return new class extends Migration {
 
             $table->string('caminho_arquivo');
             $table->timestamps();
+            
         });
     }
 

@@ -2,8 +2,9 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+
     <title>Formulário de Ouvidoria</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -72,8 +73,8 @@
             </div>
             <h2 class="info-title">Informações da manifestação</h2>
             <div class="form-group">
-                <label for="secretaria_id" class="form-label">Secretaria de destino da manifestação</label>
-                <select name="secretaria_id" id="secretaria_id" class="form-select" required>
+                <label for="secretaria" class="form-label">Secretaria de destino da manifestação</label>
+                <select name="secretaria" id="secretaria" class="form-select" required>
                     <option value="">Selecione...</option>
                     <option value="secretaria1" {{ $manifestacao->secretaria_id == 'secretaria1' ? 'selected' : '' }}>Secretaria 1</option>
                     <option value="secretaria2" {{ $manifestacao->secretaria_id == 'secretaria2' ? 'selected' : '' }}>Secretaria 2</option>

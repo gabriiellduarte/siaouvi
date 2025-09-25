@@ -13,6 +13,7 @@ class Manifestacao extends Model
     protected $table = 'manifestacoes';
 
     protected $fillable = [
+        'anonimo',
         'nome',
         'cpf',
         'data_nascimento',
@@ -23,13 +24,30 @@ class Manifestacao extends Model
         'telefone',
         'secretaria',
         'tipo_assunto',
+        'user_id',
         'forma_contato',
         'natureza',
         'mensagem',
+
     ];
+    
 
     public function anexos()
     {
-        return $this->hasMany(Anexo::class);
+        
+        return $this->hasMany(Anexo::class, 'manifestacao_id');
+
     }
+
+    
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
+    public function movimentacoes() 
+    {
+        return $this->hasMany(Movimentacao::class);
+    }
+
 }
