@@ -8,5 +8,5 @@
       <input type="text" id="funcao" name="name" class="w-25 form-control" placeholder="Digite o nome da nova função " required>
       <button type="submit" class="btn btn-dark">Criar nova função</button>
     </div>
-    </form>
+  </form>
 </body>

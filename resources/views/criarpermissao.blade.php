@@ -11,8 +11,8 @@
     <form action="{{ route('permissoes.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-        <label for="criar" class="form-label">Criar permissão</label>
-        <input type="text" name="name" class="w-25 form-control" placeholder="Nome da permissão" required>
+            <label for="criar" class="form-label">Criar permissão</label>
+            <input type="text" name="name" class="w-25 form-control" placeholder="Nome da permissão" required>
         <button type="submit" class="btn btn-dark">Criar</button>
         </div>
     </form>
