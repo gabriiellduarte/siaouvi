@@ -23,21 +23,25 @@ use Spatie\Permission\Models\Role;
 
     public function edit($id)
     {
+
       $role = Role::findById($id);
         return view('editarlistadefuncao', compact('role'));
     }
 
     public function update(Request $request, $id) 
     {
-  
+      
       $role = Role::findById($id);
       $role->name = $request->input('name');
       $role->save();
-        return redirect()->route('listadefuncao.index')->with('success', 'Função alterada com sucesso!');    }
-
+        return redirect()->route('listadefuncao.index')->with('success', 'Função alterada com sucesso!');
+      
+    
+    }
+      
     public function store(Request $request)
     {
-      //dd($request);
+
   
     Role::create(['name'=>$request->input('name')]);
       return redirect()->route('listadefuncao.index')->with('Sucesso! Função criada com sucesso!');

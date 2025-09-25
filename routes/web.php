@@ -31,9 +31,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 //  });
 
 
-    //SISTEMA ANTIGO
+   
     Route::group(['middleware' => ['can:editar manifestações']], function () {
-
+ //SISTEMA ANTIGO
         Route::get('/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidoria.show');
         Route::get('/edicao/{id}', [OuvidoriaController::class, 'edit'])->name('ouvidoria.edicao');
         Route::delete('/delete/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidoria.destroy');

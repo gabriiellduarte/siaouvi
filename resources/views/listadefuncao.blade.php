@@ -1,5 +1,9 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<body>
+  
+
 <h3>Lista de função:</h3>
-<table border="1">
+<table border="1" class="table table-striped">
   <thead>
     <tr>
       <th>ID</th>
@@ -8,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-  @foreach($roles as $role)
+  @forelse($roles as $role)
   <tr>
     <td>{{ $role->id }}</td>
     <td>{{ $role->name }}</td>
@@ -16,13 +20,21 @@
       <button><a href="{{ route('funcao.atribuirpermissoes', $role->id) }}">Atribuir permissões</a></button>
     <form action="{{ route('listadefuncao.destroy', $role->id) }}" method="POST">
       @csrf
-    @method('DELETE')
-    <button type="submit">Excluir função</button></td>
-   </form>
+      @method('DELETE')
+      @can('excluir função')
+      <button type="submit" class="btn btn-dark">Excluir função</button></td>
+      @endcan
+  </form>
   </tr>
-  @endforeach
+      @empty
+  <tr>
+      <td colspan="4">Nenhuma função registrada.</td>
+  </tr>
+  @endforelse
 
   </tbody>
-
-  <a href="{{ route('listadefuncao.create') }}">Criar nova função</a>
+  @can('criar função')
+  <button class="btn btn-dark"><a href="{{ route('listadefuncao.create') }}">Criar nova função</a></button>
+  @endcan
 </table>
+</body>
