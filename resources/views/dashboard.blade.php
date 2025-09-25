@@ -186,16 +186,21 @@
                         <td>{{ count($manifestacao->anexos ?? []) > 0 ? 'Sim' : 'Não' }}</td>
 
                             <td>
+                                @can('editar manifestação')
                                 <button><a href="{{ route('ouvidoria.edicao', $manifestacao->id) }}">Editar</a></button>
+                                @endcan
                                 <form action="{{ route('ouvidoria.destroy', $manifestacao->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
+                                @can('deletar manifestação')
                                     <button type="submit">Excluir</button>
-
-                                </form><button><a
+                                @endcan
+                                </form>
+                                @can('visualizar manifestação')
+                                <button><a
                                         href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button>
-
+                                @endcan
                                 <!-- ...existing code... -->
                                 <!-- Botão para abrir o modal -->
                                 <button type="button" onclick="abrirModal({{ $manifestacao->id }})"

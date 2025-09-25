@@ -1,3 +1,5 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,23 +15,28 @@
 
     <h3>Funções</h3>
     @foreach($roles as $role)
+    <div class="mb-3">
         <label>
-            <input type="checkbox" name="roles[]" value="{{ $role->name }}"
+            <input type="checkbox" name="roles[]" form="form-check-input" value="{{ $role->name }}"
                    {{ $user->hasRole($role->name) ? 'checked' : '' }}>
             {{ $role->name }}
         </label><br>
+    </div>
     @endforeach
 
     <h3>Permissões</h3>
     @foreach($permissions as $permission)
+    <div class="mb-3"></div>
         <label>
-            <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"
+            <input type="checkbox" name="permissions[]" class="form-check-input" value="{{ $permission->name }}"
                    {{ $user->hasPermissionTo($permission->name) ? 'checked' : '' }}>
             {{ $permission->name }}
         </label><br>
     @endforeach
-
-    <button type="submit">Salvar</button>
+    </div>
+    <button type="submit" class="btn btn-dark">Salvar</button>
+    <br>
+    <button class="btn btn-dark"><a href="{{ route('usuarios.index') }}">Voltar a lista de usuários</a></button>
 </form>
 
 </body>

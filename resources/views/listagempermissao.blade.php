@@ -1,3 +1,5 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +9,7 @@
 </head>
 <body>
     <h2>Listagem de Permissões</h2>
-    <table border="1">
+    <table border="1" class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -23,18 +25,23 @@
                     <td>{{ $permission->name }}</td>
                     <td>{{ $permission->guard_name }}</td>
                     <td>
-                        <button><a href="{{ route('permissoes.edit', $permission->id) }}">Editar</a></button>
-                        
+                        @can('editar permissão')
+                        <button class="btn btn-dark"><a href="{{ route('permissoes.edit', $permission->id) }}">Editar</a></button>
+                        @endcan
                         
                         <form action="{{ route('permissoes.destroy', $permission->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta permissão?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Excluir</button>
+                        @can('excluir permissão')
+                            <button type="submit" class="btn btn-dark">Excluir</button>
+                        @endcan
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
-        <button><a href="{{ route('permissoes.create', $permission->id) }}">Criar Permissão</a></button>
-</body>
+        @can('criar permissão')
+        <button class="btn btn-dark"><a href="{{ route('permissoes.create', $permission->id) }}">Criar Permissão</a></button>
+        @endcan
+    </body>
 </html>
