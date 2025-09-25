@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 
 
+
 //Página inicial
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -21,6 +22,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+//     Route::middleware(['auth', 'role:admin'])->group(function () {
+//     // rotas de roles
+//     // rotas de permissões
+//     // rotas de atribuição
+// });
+
     //SISTEMA ANTIGO
     Route::get('/ouvidoria', [OuvidoriaController::class, 'create'])->name('ouvidoria.form');
     Route::post('/ouvidoria', [OuvidoriaController::class, 'store'])->name('ouvidoria.store');
@@ -29,20 +36,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/delete/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidoria.destroy');
     Route::get('/ouvi/dashboard', [OuvidoriaController::class, 'dashboard'])->name('dashboardouvi');
     Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
-    
-    //pagina de movimentação
-    Route::get('/movimentacao', function () {
-        $manifestacoes = Manifestacao::all();
-        return view('movimentacao', compact('manifestacao'));
-    });
-
-    Route::get('/manifestacoes/{id}/movimentacoes/criar', [MovimentacaoController::class, 'create'])->name('movimentacoes.create');
-    Route::post('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'store'])->name('movimentacoes.store');
-    Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'show'])->name('movimentacao.show');
-    Route::get('/movimentacao', function () {
-        return view('movimentacao');
-    });
-
     Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
      ->name('satisfacaodapag.index');
 
