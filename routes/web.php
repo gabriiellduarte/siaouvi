@@ -100,6 +100,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/avaliacao', [OuvidoriaController::class, 'avaliacaoStore'])->name('avaliacaoStore');
     Route::get('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaCreate'])->name('avaliacoes.create');
     Route::post('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaStore'])->name('avaliacoesperguntaStore');
+    Route::get('/avdashboard', [OuvidoriaController::class, 'dashboardAvaliacoes'])->name('dashboardavaliacoes');
 });
 
 require __DIR__ . '/settings.php';

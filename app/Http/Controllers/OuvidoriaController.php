@@ -109,6 +109,71 @@ class OuvidoriaController extends Controller
         return redirect()->back()->with('success', 'Avaliação salva com sucesso!');
     }
 
+    public function dashboardAvaliacoes(Request $request)
+    {
+        $quantidadeAvaliacoes = AvaliacaoPergunta::count();
+
+        $ultimaAvaliacao = AvaliacaoPergunta::latest('created_at')->first();
+
+        $ultimaData = $ultimaAvaliacao ? $ultimaAvaliacao->created_at->format('d/m/Y H:i:s') : 'N/A';
+
+        $perguntas = [
+            1 => 'Como você avalia a atual Gestão Administrativa do nosso Município?',
+            2 => 'Como você avalia a questão de segurança pública em seu bairro/município?',
+            3 => 'Como você avalia a situação da conservação do patrimônio histórico do seu bairro/município?',
+            4 => 'Como você avalia o atendimento da Ouvidoria Geral do nosso Município?',
+            5 => 'Como você avalia o atendimento e serviços da Assistência Social do nosso município?',
+            6 => 'Como você avalia o atendimento e serviços da Educação do nosso município?',
+            7 => 'Como você avalia o atendimento e serviços da Saúde do nosso município?',
+            8 => 'Como você avalia o empenho da gestão no fortalecimento da cultura e tradições em seu Município?',
+            9 => 'Como você avalia o fortalecimento e investimento em práticas esportivas e lúdicas em seu bairro/município?',
+            10 => 'Como você avalia o serviço de coleta de lixo em seu bairro/município?',
+            11 => 'Como você avalia o serviço de conservação de limpeza das ruas em seu bairro/município?',
+            12 => 'Como você avalia o serviço de iluminação pública em seu bairro/município?',
+            13 => 'Como você avalia o serviço de pavimentação e conservação das vias públicas em seu bairro/município?',
+            14 => 'Como você avalia o serviço de transporte público em seu bairro/município?',
+        ];
+
+        $totais = [
+            'muitoinsatisfeito' => 0,
+            'insatisfeito' => 0,
+            'neutro' => 0,
+            'satisfeito' => 0,
+            'muitosatisfeito' => 0,
+            'total' => 0
+        ];
+
+        foreach ($perguntas as $i => $texto) {
+            $coluna = "resposta" . ($i + 1);
+            $respostas = AvaliacaoPergunta::select(
+                DB::raw("SUM(CASE WHEN resposta{$i}=2 THEN 1 ELSE 0 END) as muitoinsatisfeito"),
+                DB::raw("SUM(CASE WHEN resposta{$i}=4 THEN 1 ELSE 0 END) as insatisfeito"),
+                DB::raw("SUM(CASE WHEN resposta{$i}=6 THEN 1 ELSE 0 END) as neutro"),
+                DB::raw("SUM(CASE WHEN resposta{$i}=8 THEN 1 ELSE 0 END) as satisfeito"),
+                DB::raw("SUM(CASE WHEN resposta{$i}=10 THEN 1 ELSE 0 END) as muitosatisfeito"),
+                DB::raw("COUNT(resposta{$i}) as total")
+            )->first();
+
+
+            $totais['muitoinsatisfeito'] += $respostas->muitoinsatisfeito;
+            $totais['insatisfeito'] += $respostas->insatisfeito;
+            $totais['neutro'] += $respostas->neutro;
+            $totais['satisfeito'] += $respostas->satisfeito;
+            $totais['muitosatisfeito'] += $respostas->muitosatisfeito;
+            $totais['total'] += $respostas->total;
+        }
+            return view('avdashboard', [
+                'quantidadeAvaliacoes' => $quantidadeAvaliacoes,
+                'ultimaData' => $ultimaData,
+                'muitoinsatisfeito' => $totais['muitoinsatisfeito'],
+                'insatisfeito' => $totais['insatisfeito'],
+                'neutro' => $totais['neutro'], 
+                'satisfeito' => $totais['satisfeito'],
+                'muitosatisfeito' => $totais['muitosatisfeito'],
+                'total' => $totais['total']
+            ]);
+    }
+
     public function index(Request $request)
     {
         $query = Avaliacao::query();
