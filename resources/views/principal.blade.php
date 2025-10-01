@@ -12,6 +12,7 @@
         <h1 class="form-title">Formulário de Ouvidoria</h1>
         <form for="ouvidoria" action="{{ route('ouvidoria.store') }}" method="POST" enctype="multipart/form-data" class="ouvidoria-form">
             @csrf
+            <h2 class="info-title">Informações do usuário</h2>
             {{-- enviar de forma anonima --}}
             <div class="form-group">
                 <label class="block mb-2">
@@ -73,10 +74,20 @@
                 <label for="contato" class="form-label">Contato:</label>
                 <input type="tel" id="contato" name="contato" class="form-input" required>
             </div>
+            <div class="form-group">
+                <label for="cep" class="form-label">CEP:</label>
+                <select name="cep" id="cep" class="form-select" required>
+                    <option value="">selecione...</option>
+                    <option value="bairro1">Bairro 1</option>
+                    <option value="bairro2">Bairro 2</option>
+                    <option value="bairro3">Bairro 3</option>
+                    <option value="outros">Outros</option>
+    </select>
+
+    <input type="text" id="outros-input" name="outros_texto" placeholder="Especifique o bairro" class="form-input" style="display:none; margin-top:10px;">
             </div>
 
-            
-            </div>
+        </div>
 
             
             <h2 class="info-title">Informações da manifestação</h2>
@@ -87,6 +98,16 @@
                     <option value="secretaria1">Secretaria 1</option>
                     <option value="secretaria2">Secretaria 2</option>
                     <option value="secretaria3">Secretaria 3</option>
+                </select>
+            </div>
+            <div>
+                <label for="origem">Origem</label>
+                <select name="origem" id="origem" class="form-select" required>
+                    <option value="">Selecione...</option>
+                    <option value="internet">Internet</option>
+                    <option value="telefone">Telefone</option>
+                    <option value="presencial">Presencial</option>
+                    <option value="gmail">Gmail</option>
                 </select>
             </div>
             <div>
@@ -151,6 +172,19 @@
         });
     }
 });
+const select = document.getElementById('cep');
+    const outrosInput = document.getElementById('outros-input');
+
+    select.addEventListener('change', function () {
+      if (this.value === 'outros') {
+        outrosInput.style.display = 'block';
+        outrosInput.required = true; // obriga preencher se escolher "Outros"
+      } else {
+        outrosInput.style.display = 'none';
+        outrosInput.value = '';
+        outrosInput.required = false;
+      }
+    });
 </script>
     
 </body>

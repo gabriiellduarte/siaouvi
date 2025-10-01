@@ -23,6 +23,8 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('tipo_telefone')->nullable();
             $table->string('telefone')->nullable();
+            $table->string('cep')->nullable();
+            
             
             // Informações da manifestação
             $table->string('secretaria')->nullable();
@@ -30,6 +32,7 @@ return new class extends Migration {
             $table->string('forma_contato');
             $table->string('natureza');
             $table->text('mensagem')->nullable();
+            $table->string('origem')->nullable();
             $table->timestamps();
             
 

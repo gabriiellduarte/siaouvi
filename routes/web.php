@@ -3,13 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\MovimentacaoController;
-;
 use App\Http\Controllers\FuncaoController;
 use App\Http\Controllers\PermissionController;
 use App\Models\Manifestacao;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules\Can;
-
+use App\Http\Controllers\RelatorioController;
 
 
 
@@ -19,31 +18,38 @@ Route::get('/', function () {
 })->name('home');
 
 //Rotas protegidas
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+ Route::middleware(['auth', 'verified'])->group(function () {
+     Route::get('dashboard', function () {
+         return Inertia::render('dashboard');
+     })->name('dashboard');
 
-    //     Route::middleware(['auth', 'role:admin'])->group(function () {
+         //Route::middleware(['auth', 'role:admin'])->group(function () {
 // //     // rotas de roles
 // //     // rotas de permissões
 // //     // rotas de atribuição
-//  });
+ // });
+
+    
+
+Route::get('/relatorios/ouvidoria', [RelatorioController::class, 'index'])->name('relatorios.ouvidoria');
+Route::get('/relatorios/ouvidoria/imprimir', [RelatorioController::class, 'imprimir'])->name('imprimir');
+Route::get('/relatorios/ouvidoria/pdf/{id}', [RelatorioController::class, 'pdf'])->name('pdf');
 
 
 
-    Route::group(['middleware' => ['can:editar manifestações']], function () {
+
+
+    // Route::group(['middleware' => ['can:editar manifestações']], function () {
         //SISTEMA ANTIGO
         Route::get('/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidoria.show');
         Route::get('/edicao/{id}', [OuvidoriaController::class, 'edit'])->name('ouvidoria.edicao');
         Route::delete('/delete/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidoria.destroy');
         Route::get('/ouvi/dashboard', [OuvidoriaController::class, 'dashboard'])->name('dashboardouvi');
         Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
-        Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
-            ->name('satisfacaodapag.index');
+        
 
 
-    });
+    // });
     Route::get('/ouvidoria', [OuvidoriaController::class, 'create'])->name('ouvidoria.form');
     Route::post('/ouvidoria', [OuvidoriaController::class, 'store'])->name('ouvidoria.store');
 
@@ -100,6 +106,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/avaliacao', [OuvidoriaController::class, 'avaliacaoStore'])->name('avaliacaoStore');
     Route::get('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaCreate'])->name('avaliacoes.create');
     Route::post('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaStore'])->name('avaliacoesperguntaStore');
+    Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
+            ->name('satisfacaodapag.index');
+    Route::get('/relatorioavaliacoes', [OuvidoriaController::class, 'relatorio'])
+            ->name('relatorio.show');
 });
 
 require __DIR__ . '/settings.php';

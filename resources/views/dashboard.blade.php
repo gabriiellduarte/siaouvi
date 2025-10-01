@@ -197,16 +197,18 @@
                                     <button type="submit">Excluir</button>
                                 @endcan
                                 </form>
-                                @can('visualizar manifestação')
+                                {{-- @can('visualizar manifestação') --}}
                                 <button><a
                                         href="{{ route('movimentacao.show', $manifestacao->id) }}">Andamento</a></button>
-                                @endcan
+                                        
+                                {{-- @endcan --}}
                                 <!-- ...existing code... -->
                                 <!-- Botão para abrir o modal -->
                                 <button type="button" onclick="abrirModal({{ $manifestacao->id }})"
                                     class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                                     Visualizar anexos
                                 </button>
+                                <button><a href="{{ route('relatorios.ouvidoria', $manifestacao->id) }}">ver relatorio</a></button>
 
                                 <!-- Modal exclusivo para cada manifestação -->
                                 <div id="modalAnexos{{ $manifestacao->id }}" class="modal" style="display: none;">
