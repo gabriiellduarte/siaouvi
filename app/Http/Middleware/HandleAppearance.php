@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HandleAppearance
 {
+
+    
     /**
      * Handle an incoming request.
      *

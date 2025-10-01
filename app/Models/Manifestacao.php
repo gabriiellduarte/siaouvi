@@ -22,12 +22,14 @@ class Manifestacao extends Model
         'email',
         'tipo_telefone',
         'telefone',
+        'cep',
         'secretaria',
         'tipo_assunto',
         'user_id',
         'forma_contato',
         'natureza',
         'mensagem',
+        'origem',
 
     ];
     

@@ -274,11 +274,13 @@ $manifestacao = Manifestacao::create([
             'email' => $request->email,
             'tipo_telefone' => $request->tipo_telefone,
             'telefone' => $request->contato,
+            'cep' => $request->cep,
             'secretaria' => $request->secretaria, // ID correto vindo do select
             'tipo_assunto' => $request->tipo_assunto,
             'forma_contato' => $request->forma_contato,
             'natureza' => $request->natureza,
             'mensagem' => $request->observacoes,
+            'origem' => $request->origem,
             
             
             //'anexos' => $request->anexos, // tratar isso depois
