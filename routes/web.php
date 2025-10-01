@@ -101,6 +101,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaCreate'])->name('avaliacoes.create');
     Route::post('/avaliacoes', [OuvidoriaController::class, 'avaliacaoperguntaStore'])->name('avaliacoesperguntaStore');
     Route::get('/avdashboard', [OuvidoriaController::class, 'dashboardAvaliacoes'])->name('dashboardavaliacoes');
+
+
+    Route::get('/relatorio', [MovimentacaoController::class, 'index'])->name('relatorio.index');
+    Route::get('/relatoriodashboard', [MovimentacaoController::class, 'dashboard'])->name('relatorio.dashboard');
 });
 
 require __DIR__ . '/settings.php';

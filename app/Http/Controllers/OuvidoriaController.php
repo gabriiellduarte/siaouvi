@@ -143,6 +143,7 @@ class OuvidoriaController extends Controller
             'total' => 0
         ];
 
+        // Loop para as perguntas e coletar as respostas de cada pergunta
         foreach ($perguntas as $i => $texto) {
             $coluna = "resposta" . ($i + 1);
             $respostas = AvaliacaoPergunta::select(
@@ -154,7 +155,7 @@ class OuvidoriaController extends Controller
                 DB::raw("COUNT(resposta{$i}) as total")
             )->first();
 
-
+            // Coletar a quantidade de respostas de cada classificação de satisfação
             $totais['muitoinsatisfeito'] += $respostas->muitoinsatisfeito;
             $totais['insatisfeito'] += $respostas->insatisfeito;
             $totais['neutro'] += $respostas->neutro;
@@ -162,6 +163,8 @@ class OuvidoriaController extends Controller
             $totais['muitosatisfeito'] += $respostas->muitosatisfeito;
             $totais['total'] += $respostas->total;
         }
+
+            // Retornar para a view com as seguintes variáveis
             return view('avdashboard', [
                 'quantidadeAvaliacoes' => $quantidadeAvaliacoes,
                 'ultimaData' => $ultimaData,
