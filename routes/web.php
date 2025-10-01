@@ -2,11 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OuvidoriaController;
-<<<<<<< HEAD
 use App\Http\Controllers\MovimentacaoController;
-=======
-use App\Http\Controllers\MovimentacaoController;;
->>>>>>> gustavo
 use App\Http\Controllers\FuncaoController;
 use App\Http\Controllers\PermissionController;
 use App\Models\Manifestacao;
@@ -22,17 +18,10 @@ Route::get('/', function () {
 })->name('home');
 
 //Rotas protegidas
-<<<<<<< HEAD
  Route::middleware(['auth', 'verified'])->group(function () {
      Route::get('dashboard', function () {
          return Inertia::render('dashboard');
      })->name('dashboard');
-=======
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
->>>>>>> gustavo
 
          //Route::middleware(['auth', 'role:admin'])->group(function () {
 // //     // rotas de roles
@@ -63,28 +52,13 @@ Route::get('/relatorios/ouvidoria/pdf/{id}', [RelatorioController::class, 'pdf']
     // });
     Route::get('/ouvidoria', [OuvidoriaController::class, 'create'])->name('ouvidoria.form');
     Route::post('/ouvidoria', [OuvidoriaController::class, 'store'])->name('ouvidoria.store');
-<<<<<<< HEAD
 
     //Rotas de movimentação
-=======
-    Route::get('/show/{id}', [OuvidoriaController::class, 'show'])->name('ouvidoria.show');
-    Route::get('/edicao/{id}', [OuvidoriaController::class, 'edit'])->name('ouvidoria.edicao');
-    Route::delete('/delete/{id}', [OuvidoriaController::class, 'destroy'])->name('ouvidoria.destroy');
-    Route::get('/ouvi/dashboard', [OuvidoriaController::class, 'dashboard'])->name('dashboardouvi');
-    Route::post('/update/{id}', [OuvidoriaController::class, 'update'])->name('ouvidoria.update');
-    
-    Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
-     ->name('satisfacaodapag.index');
-
-     //Rotas de movimentação
->>>>>>> gustavo
     Route::post('/manifestacoes/{id}/movimentar', [MovimentacaoController::class, 'storeMovimentacao'])
-        ->name('manifestacoes.movimentar.store');
         ->name('manifestacoes.movimentar.store');
     Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'showMovimentacao'])->name('movimentacao.show');
     Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'movimentacoes'])->name('manifestacoes.movimentacoes');
     Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'showMovimentacao'])
-        ->name('manifestacoes.movimentacoes');
         ->name('manifestacoes.movimentacoes');
 
     //Rotas de Usuários
@@ -177,11 +151,6 @@ Route::get('/relatorios/ouvidoria/pdf/{id}', [RelatorioController::class, 'pdf']
             ->name('relatorio.show');
 });
 
-<<<<<<< HEAD
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
-=======
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
->>>>>>> gustavo
 
