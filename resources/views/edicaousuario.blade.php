@@ -13,13 +13,13 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-        <label for="name" class="form-label">Nome:</label>
-        <input type="text" id="name" name="name" class="w-25 form-control" value="{{ $user->name }}" required>
+            <label for="name" class="form-label">Nome:</label>
+            <input type="text" id="name" name="name" class="w-25 form-control" value="{{ $user->name }}" required>
         </div>
         <br>
         <div class="mb-3">
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" id="email" name="email" class="w-25 form-control" value="{{ $user->email }}" required>
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" name="email" class="w-25 form-control" value="{{ $user->email }}" required>
         </div>
         <br>
         <button type="submit" class="btn btn-dark">Salvar</button>

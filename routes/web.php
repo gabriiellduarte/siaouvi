@@ -80,9 +80,11 @@ Route::get('/relatorios/ouvidoria/pdf/{id}', [RelatorioController::class, 'pdf']
 >>>>>>> gustavo
     Route::post('/manifestacoes/{id}/movimentar', [MovimentacaoController::class, 'storeMovimentacao'])
         ->name('manifestacoes.movimentar.store');
+        ->name('manifestacoes.movimentar.store');
     Route::get('/movimentacao/{id}', [MovimentacaoController::class, 'showMovimentacao'])->name('movimentacao.show');
     Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'movimentacoes'])->name('manifestacoes.movimentacoes');
     Route::get('/manifestacoes/{id}/movimentacoes', [MovimentacaoController::class, 'showMovimentacao'])
+        ->name('manifestacoes.movimentacoes');
         ->name('manifestacoes.movimentacoes');
 
     //Rotas de Usuários
@@ -125,7 +127,13 @@ Route::get('/relatorios/ouvidoria/pdf/{id}', [RelatorioController::class, 'pdf']
     Route::put('/permissoes/{id}', [App\Http\Controllers\PermissionController::class, 'update'])->name('permissoes.update');
 
 
-    
+
+    Route::get('/atribuirpermissoesafuncao/{id}', [FuncaoController::class, 'showAssignForm'])->name('funcao.atribuirpermissoes');
+    Route::post('/atribuirpermissoesafuncao/{id}', [FuncaoController::class, 'assignPermissionRole'])->name('funcao.atribuirpermissoes.store');
+
+
+
+
     //Rotas de listagem de função
     Route::get('/listadefuncao', [App\Http\Controllers\FuncaoController::class, 'index'])->name('listadefuncao.index');
     Route::post('/listadefuncao', [App\Http\Controllers\FuncaoController::class, 'store'])->name('listadefuncao.store');

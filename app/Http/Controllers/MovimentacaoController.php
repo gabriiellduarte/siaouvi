@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Movimentacao;
 use App\Models\Manifestacao;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -56,6 +57,26 @@ class MovimentacaoController extends Controller
     {
         $manifestacao = Manifestacao::with( 'movimentacoes')->findOrFail($id);
         return view('movimentacao', compact('manifestacao'));
+    }
+
+    public function index()
+    {
+        $manifestacoes = Manifestacao::all();
+            return view('/relatorio', compact('manifestacoes'));
+    }
+
+    public function dashboard()
+    {
+        // Buscar e agrupar pela natureza da manifestação
+        $dados = DB::table('manifestacoes')
+        ->select('natureza', DB::raw('COUNT(*) as total'))
+        ->groupBy('natureza')
+        ->get();
+
+        // Preparar a array para o gráfico 
+        $labels = $dados->pluck('natureza')->toArray();
+        $values = $dados->pluck('total')->toArray();
+            return view('relatoriodashboard', ['labels' => $labels, 'values' => $values]);
     }
 
 
