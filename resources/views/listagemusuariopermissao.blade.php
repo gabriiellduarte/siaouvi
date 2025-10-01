@@ -38,6 +38,7 @@
                         @endforeach
                     </td>
                     <td>
+<<<<<<< HEAD
                         {{-- @can('atribuir permissão a função') --}}
                         <button><a href="{{ route('users.assign', $user->id) }}">Atribuir Permissão</a></button>
                         {{-- @endcan --}}
@@ -46,6 +47,16 @@
                             <a href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
                         </button>
                         {{-- @endcan --}}
+=======
+                        @can('atribuir permissão a função')
+                        <button><a href="{{ route('users.assign', $user->id) }}">Atribuir Permissão</a></button>
+                        @endcan
+                        @can('editar usuario')
+                        <button>
+                            <a href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
+                        </button>
+                        @endcan
+>>>>>>> gustavo
                         <form action="{{ route('usuarios.destroy', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

@@ -120,7 +120,7 @@
             </tr>
             <tr>
                 <th>DATA MOVIMENTAÇÃO</th>
-                {{-- <td colspan="3">{{ $movimentacao->created_at->format('d/m/Y H:i:s') ?? '---' }}</td> --}}
+                <td colspan="3">{{ $movimentacao->created_at->format('d/m/Y H:i:s') ?? '---' }}</td>
             </tr>
         </table>
     </div>

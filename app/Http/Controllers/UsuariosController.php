@@ -73,7 +73,10 @@ class UsuariosController extends Controller
         // atribuir permissões
         if($request->permissions){
             $user->syncPermissions($request->permissions);
+<<<<<<< HEAD
             
+=======
+>>>>>>> gustavo
         }
 
         return redirect()->back()->with('success','Permissões/roles atribuídas!');

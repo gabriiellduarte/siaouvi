@@ -54,6 +54,7 @@ use Spatie\Permission\Models\Role;
         return redirect()->route('listadefuncao.index')->with('success', 'Função excluída com sucesso!');
 
     }
+<<<<<<< HEAD
 
       // Exibe o formulário para atribuir permissões a uma função
     public function showAssignForm($id)
@@ -75,4 +76,6 @@ use Spatie\Permission\Models\Role;
         return redirect()->route('listadefuncao.index')->with('success', 'Permissões atribuídas à função com sucesso!');
     }
     
+=======
+>>>>>>> gustavo
 }
