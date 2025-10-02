@@ -1,6 +1,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<style>
+  a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+
 <nav class="navbar bg-light border-bottom">
   <div class="container-fluid">
     <button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas"
@@ -10,7 +17,6 @@
   </div>
 </nav>
 
-<!-- Sidebar -->
 <div class="offcanvas offcanvas-start bg-white text-dark" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="sidebarLabel">Selecione um tipo de relatório:</h5>
@@ -19,7 +25,6 @@
   <div class="offcanvas-body p-0">
     <div class="accordion accordion-flush" id="accordionSidebar">
 
-      <!-- Relatórios de Listagem -->
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingListagem">
           <button class="accordion-button collapsed bg-white text-dark" type="button" data-bs-toggle="collapse"
@@ -31,7 +36,6 @@
           data-bs-parent="#accordionSidebar">
           <div class="accordion-body p-0">
 
-            <!-- Submenu: Listagem sem detalhamento -->
             <div class="accordion accordion-flush" id="accordionListagemSem">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingListagemSem">
@@ -43,7 +47,7 @@
                 <div id="collapseListagemSem" class="accordion-collapse collapse" aria-labelledby="headingListagemSem"
                   data-bs-parent="#accordionListagemSem">
                   <div class="accordion-body d-flex flex-column gap-2 ps-5">
-                    <a href="" class="btn btn-outline-dark text-start">Listagem</a>
+                    <a href="{{ route('relatorios.ouvidoria') }}" class="btn btn-outline-dark text-start">Listagem</a>
                   </div>
                 </div>
               </div>
@@ -61,7 +65,7 @@
                 <div id="collapseListagemCom" class="accordion-collapse collapse" aria-labelledby="headingListagemCom"
                   data-bs-parent="#accordionListagemCom">
                   <div class="accordion-body d-flex flex-column gap-2 ps-5">
-                    <a href="" class="btn btn-outline-dark text-start">Listagem</a>
+                    <a href="{{ route('relatorios.ouvidoria') }}" class="btn btn-outline-dark text-start">Listagem</a>
                   </div>
                 </div>
               </div>
@@ -125,7 +129,7 @@
 </div>
 
 <div style="text-align: center; margin-top: 20px;">
-  <button class="btn btn-light">Gerar relatório</button>
+  <button class="btn btn-light"><a href="{{ route('relatoriodashboard_pdf', request()->query()) }}" target="_blank">Gerar relatório</a></button>
 </div>
 
 <!-- Chart.js -->
@@ -133,7 +137,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Labels e valores vindos do controller
   const labels = @json($labels);
   const values = @json($values);
   const total = values.reduce((a, b) => a + b, 0);
@@ -141,7 +144,7 @@
   const colors = [
     '#01d7fdff', '#e90909ff', '#f1c40f', '#34d399', '#0b6623',
     '#3498db', '#9b59b6', '#16a085', '#f39c12', '#2c3e50'
-  ]; // paleta maior para vários tipos de natureza
+  ]; 
 
   const ctx = document.getElementById('naturezaChart').getContext('2d');
 

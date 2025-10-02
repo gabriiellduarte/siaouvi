@@ -268,7 +268,6 @@
                                                 </tbody>
                                             </table>
 
-                                            <!-- Área para visualizar imagem -->
                                             <div id="imagemModal{{ $manifestacao->id }}"
                                                 style="display:none; text-align:center; margin-top:20px;">
                                                 <img id="imagemExibida{{ $manifestacao->id }}" src="" alt="Visualização"
@@ -278,7 +277,6 @@
                                     </div>
                                 </div>
 
-                                <!-- CSS do modal -->
                                 <style>
                                     .modal {
                                         position: fixed;
@@ -352,7 +350,6 @@
         </p>
     @endif
 
-    <!-- JS -->
     <script>
         function abrirModal(id) {
             document.getElementById('modalAnexos' + id).style.display = 'flex';

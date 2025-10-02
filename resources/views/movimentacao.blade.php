@@ -76,9 +76,9 @@
             <label for="secretaria">Secretaria</label>
             <select name="secretaria" id="secretaria" class="form-select">
                 <option value="">Selecione...</option>
-                <option value="s1">Secretaria 1</option>
-                <option value="s2">Secretaria 2</option>
-                <option value="s3">Secretaria 3</option>
+                <option value="Secretaria1">Secretaria 1</option>
+                <option value="Secretaria2">Secretaria 2</option>
+                <option value="Secretaria3">Secretaria 3</option>
             </select>
           </div>
 

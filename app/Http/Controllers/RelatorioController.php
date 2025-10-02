@@ -64,9 +64,9 @@ public function pdf($id)
     
     $manifestacao = Manifestacao::findOrFail($id);
     $created = \Carbon\Carbon::parse($manifestacao->created_at);
-$manifestacao->tempo_formatado = $created->diffForHumans(null, true); 
+    $manifestacao->tempo_formatado = $created->diffForHumans(null, true); 
 // dd($movimentacoes);
-$movimentacao = Movimentacao::where('manifestacao_id', $manifestacao->id)->first();
+    $movimentacao = Movimentacao::where('manifestacao_id', $manifestacao->id)->first();
 
     $pdf = Pdf::loadView('ouvidoria_pdf', compact('manifestacao', 'movimentacao'));
     return $pdf->stream('manifestacao_' . $manifestacao->id . '.pdf');

@@ -1,6 +1,15 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<style>
+  a {
+    text-decoration: none;
+    color: white;
+  }
+</style>
+
+<title>Relatórios por natureza</title>
+
 <nav class="navbar bg-light border-bottom">
   <div class="container-fluid">
     <button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas"
@@ -10,7 +19,6 @@
   </div>
 </nav>
 
-<!-- Sidebar -->
 <div class="offcanvas offcanvas-start bg-white text-dark" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="sidebarLabel">Selecione um tipo de relatório:</h5>
@@ -19,7 +27,6 @@
   <div class="offcanvas-body p-0">
     <div class="accordion accordion-flush" id="accordionSidebar">
 
-      <!-- Relatórios de Listagem -->
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingListagem">
           <button class="accordion-button collapsed bg-white text-dark" type="button" data-bs-toggle="collapse"
@@ -49,7 +56,6 @@
               </div>
             </div>
 
-            <!-- Submenu: Listagem com detalhamento -->
             <div class="accordion accordion-flush" id="accordionListagemCom">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingListagemCom">
@@ -105,10 +111,58 @@
   </div>
 </div>
 
-<div class="container mt-4 text-center">
+  <div class="container mt-4 text-center">
   <h3 class="text-dark">Relatórios de prestação de contas</h3>
   <p class="text-dark">Por natureza - listagem</p>
-  <button class="btn btn-dark">Atualizar informações para gerar relatório</button>
+
+  <form action="{{ route('relatorio.index') }}" method="GET" class="p-3 border rounded bg-light">
+    <div class="row g-3 align-items-end">
+
+      <div class="col-md-3">
+        <label for="inicio" class="form-label">Início:</label>
+        <input type="date" id="inicio" name="filter[inicio]" class="form-control"
+          value="{{ request('filter.inicio') }}">
+      </div>
+
+      <div class="col-md-3">
+        <label for="fim" class="form-label">Fim:</label>
+        <input type="date" id="fim" name="filter[fim]" class="form-control"
+          value="{{ request('filter.fim') }}">
+      </div>
+
+      <div class="col-md-3">
+        <label for="secretaria" class="form-label">Secretaria:</label>
+        <select name="filter[secretaria]" id="secretaria" class="form-select">
+          <option value="">Selecione</option>
+          <option value="secretaria1" {{ request('filter.secretaria') == 'secretaria1' ? 'selected' : '' }}>Secretaria 1</option>
+          <option value="secretaria2" {{ request('filter.secretaria') == 'secretaria2' ? 'selected' : '' }}>Secretaria 2</option>
+          <option value="secretaria3" {{ request('filter.secretaria') == 'secretaria3' ? 'selected' : '' }}>Secretaria 3</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label for="natureza" class="form-label">Categoria:</label>
+        <select id="natureza" name="filter[natureza]" class="form-select">
+          <option value="">Selecione</option>
+          <option value="sugestao" {{ request('filter.natureza') == 'sugestao' ? 'selected' : '' }}>Sugestão</option>
+          <option value="elogio" {{ request('filter.natureza') == 'elogio' ? 'selected' : '' }}>Elogio</option>
+          <option value="reclamacao" {{ request('filter.natureza') == 'reclamacao' ? 'selected' : '' }}>Reclamação</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-3 text-start">
+      <button type="submit" class="btn btn-dark">
+         Filtrar
+      </button>
+    </div>
+  </form>
+
+  <div class="mt-3">
+    <a href="{{ route('relatorio_imprimir', request()->query()) }}" target="_blank" class="btn btn-dark">
+      Gerar Relatório de todas as manifestações
+    </a>
+  </div>
 </div>
 
 <br>
@@ -126,7 +180,7 @@
       @forelse($manifestacoes as $manifestacao)
       <tr>
         <td>{{ $manifestacao->created_at }}</td>
-        <td>{{ $manifestacao->nome }}</td>
+        <td>{{ $manifestacao->anonimo ? 'ANÔNIMO' : $manifestacao->nome }}</td>
         <td>{{ $manifestacao->tipo_assunto }}</td>
         <td>{{ $manifestacao->secretaria }}</td>
       </tr>

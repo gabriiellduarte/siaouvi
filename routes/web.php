@@ -111,11 +111,15 @@ Route::get('/relatorios/ouvidoria/pdf/{id}', [RelatorioController::class, 'pdf']
 
     Route::get('/relatorio', [MovimentacaoController::class, 'index'])->name('relatorio.index');
     Route::get('/relatoriodashboard', [MovimentacaoController::class, 'dashboard'])->name('relatorio.dashboard');
-    Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])
-            ->name('satisfacaodapag.index');
-    Route::get('/relatorioavaliacoes', [OuvidoriaController::class, 'relatorio'])
-            ->name('relatorio.show');
+    Route::get('relatorio_imprimir', [MovimentacaoController::class, 'imprimir'])->name('relatorio_imprimir');
+    Route::get('relatoriodashboard_pdf', [MovimentacaoController::class, 'pdf'])->name('relatoriodashboard_pdf');
+    Route::get('/satisfacaodapag', [OuvidoriaController::class, 'index'])->name('satisfacaodapag.index');
+    Route::get('/relatorioavaliacoes', [OuvidoriaController::class, 'relatorio'])->name('relatorio.show');
+    Route::get('/relatorios/ouvidoria', [RelatorioController::class, 'index'])->name('relatorios.ouvidoria');
+    Route::get('/relatorios/ouvidoria/imprimir', [RelatorioController::class, 'imprimir'])->name('imprimir');
+    Route::get('/relatorios/ouvidoria/pdf/{id}', [RelatorioController::class, 'pdf'])->name('pdf');
 });
+            
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
